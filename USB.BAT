@@ -1,9 +1,9 @@
 :: USB.BAT, by Addison Djatschenko
 :: Very messy code, don't try and work out how it works
-:: Version 20.8
+:: Version 20.9
 @echo off
-set newStuff=Added description up the top. 
-set version=20.8
+set newStuff=Removed some useless code. 
+set version=20.9
 set hand=0
 attrib log.log -h -s
 md hidden
@@ -16,13 +16,6 @@ md USB_DAT
 md "%~dp0/USB_DAT/vs"
 md "%~dp0/USB_DAT/vs/%version%"
 copy "%~dp0/USB.BAT" "%~dp0/USB_DAT/vs/%version%/USB.BAT"
-copy "%~dp0DriveV.bat" "C:\DriveV.bat"
-copy "%~dp0DriveV.bat" "D:\DriveV.bat"
-copy "%~dp0DriveV.bat" "E:\DriveV.bat"
-copy "%~dp0DriveV.bat" "F:\DriveV.bat"
-copy "%~dp0DriveV.bat" "G:\DriveV.bat"
-copy "%~dp0DriveV.bat" "H:\DriveV.bat"
-copy "%~dp0DriveV.bat" "I:\DriveV.bat"
 md D:\USB_DAT
 md E:\USB_DAT
 md F:\USB_DAT
@@ -1031,73 +1024,6 @@ cls
 @echo off
 )>"%~dp0/USB_DAT/damaged.bat"
 goto exitit
-
-:temp
-cls
-echo This section of USB.BAT is in Beta, v0.3. This means that it may not work perfectly, or even at all.
-echo USB Temperature: Sorry, but this section requires some working on. Cannot display.
-echo. 
-echo 1= Cool down USB
-echo 2= Exit
-set /p d= "-->"
-if %d%==1 goto cool
-if %d%==2 goto ain
-goto temp
-
-:cool
-cls
-echo Cooling...
-ping localhost >nul
-ping localhost >nul
-ping localhost >nul
-echo Cooled Down. Hopefully. 
-set /p originalTemperature= "Original Temperature, hot, cold, medium, superhot, or supercold: "
-set /p cooledTemperature= "Current Temperature, hot, cold, medium, superhot, or supercold: "
-set decreasedTemperature=E01
-if %originalTemperature%==hot (
-if %cooledTemperature%==hot set decreasedTemperature=0
-if %cooledTemperature%==cold set decreasedTemperature=2
-if %cooledTemperature%==medium set decreasedTemperature=1
-if %cooledTemperature%==superhot set decreasedTemperature=-1
-if %cooledTemperature%==supercold set decreasedTemperature=3
-)
-if %originalTemperature%==cold (
-if %cooledTemperature%==hot set decreasedTemperature=-2
-if %cooledTemperature%==cold set decreasedTemperature=0
-if %cooledTemperature%==medium set decreasedTemperature=-1
-if %cooledTemperature%==superhot set decreasedTemperature=-3
-if %cooledTemperature%==supercold set decreasedTemperature=1
-)
-if %originalTemperature%==medium (
-if %cooledTemperature%==hot set decreasedTemperature=-1
-if %cooledTemperature%==cold set decreasedTemperature=1
-if %cooledTemperature%==medium set decreasedTemperature=0
-if %cooledTemperature%==superhot set decreasedTemperature=-2
-if %cooledTemperature%==supercold set decreasedTemperature=2
-)
-if %originalTemperature%==superhot (
-if %cooledTemperature%==hot set decreasedTemperature=1
-if %cooledTemperature%==cold set decreasedTemperature=3
-if %cooledTemperature%==medium set decreasedTemperature=2
-if %cooledTemperature%==superhot set decreasedTemperature=0
-if %cooledTemperature%==supercold set decreasedTemperature=4
-)
-if %originalTemperature%==supercold (
-if %cooledTemperature%==hot set decreasedTemperature=-3
-if %cooledTemperature%==cold set decreasedTemperature=-1
-if %cooledTemperature%==medium set decreasedTemperature=-2
-if %cooledTemperature%==superhot set decreasedTemperature=-4
-if %cooledTemperature%==supercold set decreasedTemperature=0
-)
-echo. 
-echo Decreased Temperature Units: %decreasedTemperature%
-echo. 
-pause
-start iexplore "mailto:addison.djatschenko@outlook.com&subject=Please%%20send%%20this%%20stats%%20email&body=OriginalTemp%%20was%%20%originalTemperature%%%20and%%20the%%20cooledtemp%%20was%cooledTemperature%"
-cls
-echo Sent feedback 
-pause>nul
-goto ain
 
 :updates
 cls
