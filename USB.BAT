@@ -3,8 +3,8 @@
 :: Version 30.0
 
 @echo off
-set newStuff=Commented on all of the program's code!!
-set version=30.0
+set newStuff=Fixed GitHub issues #3 and #4. 
+set version=30.1
 set hand=0
 :: Hides the log, so it is only accessable from USB.BAT
 attrib log.log -h -s
@@ -427,6 +427,7 @@ echo Enter any Custom Command to run as well!
 echo Or, as 3rd pref, a system goto!
 :: Changes which copy of USB.BAT to run in if it is available in a different drive.
 echo H= Change USB.BAT drive (swap to different USB)
+:: Links to GitHub source
 echo U= Check for updates
 :: Change device name for use in USB.BAT, has nothing to do with actual drive name.
 echo D= Change device name
@@ -869,7 +870,7 @@ ren "%~dp0/log2.log" "log.log"
 (
 @echo off
 echo ^<script^>
-echo alert^('The device, %device%, %~dp0 can now be safely ejected. '^);
+echo alert^('The device, %device%, %~dp0 can now be safely ejected AFTER you have used Windows' safe eject. '^);
 echo ^</script^>
 )>"%~dp0USB_DAT\alert.html"
 attrib log.log +h +s
@@ -1170,8 +1171,8 @@ goto exitit
 
 :updates
 cls
-:: Starts composing template email for user to send to Addison Djatschenko (ie me) an update check.
-start iexplore "mailto:addison.djatschenko@outlook.com&subject=Update%%20Check%%20for%%20USB.BAT%%20Version%%20%version%&body=Sent%%20as%%20an%%20update%%20check"
+:: Opens GitHub page
+start iexplore "https://github.com/AddisonPascal/USB.BAT/blob/master/USB.BAT"
 cls
 goto ain
 
