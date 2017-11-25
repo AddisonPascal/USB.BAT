@@ -1,10 +1,10 @@
 :: USB.BAT, by Addison Djatschenko
 :: Used to be very messy code. Still is however it is now fully commented!
-:: Version 30.0
+:: Version 30.2
 
 @echo off
-set newStuff=Fixed GitHub issues #3 and #4. 
-set version=30.1
+set newStuff=Fixed GitHub issue #2. 
+set version=30.2
 set hand=0
 :: Hides the log, so it is only accessable from USB.BAT
 attrib log.log -h -s
@@ -1279,7 +1279,10 @@ goto cust
 cls
 :: Switches copy of USB.BAT to use
 set /p d= "Drive to switch to (single letter): "
-"%d%:\USB.BAT"
+set called=yes
+set action=ac
+set from=%~dp0USB.BAT
+call "%d%:\USB.BAT"
 exit
 
 :newcust
