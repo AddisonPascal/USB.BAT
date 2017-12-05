@@ -1,10 +1,10 @@
 :: USB.BAT, by Addison Djatschenko
 :: Used to be very messy code. Still is however it is now fully commented!
-:: Version 30.2
+:: Version 30.3
 
 @echo off
-set newStuff=Fixed GitHub issue #2. 
-set version=30.2
+set newStuff=Working on crash reporting.
+set version=30.3
 set hand=0
 :: Hides the log, so it is only accessable from USB.BAT
 attrib log.log -h -s
@@ -1316,4 +1316,16 @@ echo Ran command %uo%.
 pause
 goto ain
 
+:intLog
+cls
+(
+type "%~dp0USB_DAT\crashReport.log"
+echo. 
+echo %time%, %date%, on %drive% - %device%, USB.BAT version %version%... Called: %called%. Action: %~dp0%from%?%action%#%data%...  %intLogType% %intLogImportance% %intMessage1% %intMessage2% %intMessage3%
+echo. 
+)>"%~dp0USB_DAT\intLog.tmp"
+del "%~dp0USB_DAT\crashReport.log"
+ren "%~dp0USB_DAT\intLog.tmp" "crashReport.log"
+
+:eof
 :: End of Program!! 
