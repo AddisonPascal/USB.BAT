@@ -1,10 +1,26 @@
 :: USB.BAT, by Addison Djatschenko
 :: Used to be very messy code. Still is however it is now fully commented!
-:: Version 30.3
+:: Version 30.4
 
 @echo off
 set newStuff=Working on crash reporting.
-set version=30.3
+set version=30.4
+set intClose=no
+if exist "%~dp0USB_DAT\intClose.log" (
+set intClose=yes
+del "%~dp0USB_DAT\intClose.log"
+)
+(
+@echo off
+echo Closed properly last execution... %intClose%
+echo. 
+)>"%~dp0USB_DAT\crashReport.log"
+set intLogType=user
+set intLogImportance=notice
+set intMessage1=Opened USB.BAT.
+set intMessage2=Username: %username%.
+set intMessage3=Computername: %computername%
+call :intLog
 set hand=0
 :: Hides the log, so it is only accessable from USB.BAT
 attrib log.log -h -s
@@ -1319,9 +1335,10 @@ goto ain
 :intLog
 cls
 (
+@echo off
 type "%~dp0USB_DAT\crashReport.log"
 echo. 
-echo %time%, %date%, on %drive% - %device%, USB.BAT version %version%... Called: %called%. Action: %~dp0%from%?%action%#%data%...  %intLogType% %intLogImportance% %intMessage1% %intMessage2% %intMessage3%
+echo %time%, %date%, on %~dp0 - %device%, USB.BAT version %version%... Called: %called%. Action: %~dp0%from%?%action%#%data%...  %intLogType% %intLogImportance% %intMessage1% %intMessage2% %intMessage3%
 echo. 
 )>"%~dp0USB_DAT\intLog.tmp"
 del "%~dp0USB_DAT\crashReport.log"
