@@ -1,18 +1,21 @@
 :: USB.BAT, by Addison Djatschenko
 :: Used to be very messy code. Still is however it is now fully commented!
-:: Version 30.4
+:: Version 30.7
 
 @echo off
 set newStuff=Working on crash reporting.
-set version=30.4
+set version=30.7
+:: Makes main data folder for USB.BAT
+md USB_DAT
 set intClose=no
-if exist "%~dp0USB_DAT\intClose.log" (
+if exist "%~dp0USB_DAT\intClose" (
 set intClose=yes
-del "%~dp0USB_DAT\intClose.log"
+del /Q "%~dp0USB_DAT\intClose"
 )
 (
 @echo off
-echo Closed properly last execution... %intClose%
+echo Closed properly last execution... %intClose%. 
+echo USB.BAT version %version%. Running on %~dp0
 echo. 
 )>"%~dp0USB_DAT\crashReport.log"
 set intLogType=user
@@ -24,34 +27,79 @@ call :intLog
 set hand=0
 :: Hides the log, so it is only accessable from USB.BAT
 attrib log.log -h -s
+set intLogType=system
+set intLogImportance=notice
+set intMessage1=Hidden USB log.
+set intMessage2=log.log.
+set intMessage3=Marked as system file.
+call :intLog
 :: Makes locked folder if it hasn't already
+set hiddenFolderExisted=true
+if not exist hidden (
+set hiddenFolderExisted=false
+)
 md hidden
+if %hiddenFolderExisted%==false (
+set intLogType=system
+set intLogImportance=warning
+set intMessage1=Made hidden folder.
+set intMessage2=Did not exist previously.
+set intMessage3=If this is first execution of USB.BAT this makes sense.
+call :intLog
+)
+if %hiddenFolderExisted%==true (
+set intLogType=system
+set intLogImportance=info
+set intMessage1=Checked for hidden folder.
+set intMessage2=Hidden folder exists.
+set intMessage3=.
+call :intLog
+)
 :: Locks locked folder
 attrib hidden +h +s
+set intLogType=system
+set intLogImportance=info
+set intMessage1=Hidden locked folder.
+set intMessage2=hidden.
+set intMessage3=Marked as system file.
+call :intLog
 set drive=no
 set device=USB Drive
 call "%~dp0USB_DAT\device.bat"
+set intLogImportance=debug
+set intMessage1=Called device.bat savefile.
+set intMessage2=Gotten device name.
+set intMessage3=Defaults to USB Drive.
+call :intLog
 echo DOING SYSTEMY STUFF
-:: Makes main data folder for USB.BAT
-md USB_DAT
 md "%~dp0/USB_DAT/vs"
 md "%~dp0/USB_DAT/vs/%version%"
 copy "%~dp0/USB.BAT" "%~dp0/USB_DAT/vs/%version%/USB.BAT"
+set intLogImportance=notice
+set intMessage1=Made vs folder.
+set intMessage2=Made vs/%version% folder.
+set intMessage3=Copied to version folder.
+call :intLog
 md D:\USB_DAT
 md E:\USB_DAT
 md F:\USB_DAT
 md G:\USB_DAT
 md H:\USB_DAT
 md I:\USB_DAT
+set intLogImportance=info
+set intMessage1=Ensured USB_DAT folder is in all mounted drives.
+set intMessage2=That is D-I.
+set intMessage3=.
+call :intLog
 :: I know, messy, however some version aspects use %usbbatv% and some %version%. 
 set usbbatv=%version%
 :: Detecting the drives. 
 if "%~dp0"=="E:\" goto exx
-if %~dp0==F:\ goto fxx
-if %~dp0==G:\ goto gxx
-if %~dp0==D:\ goto dxx
-if %~dp0==H:\ goto hxx
-if %~dp0==I:\ goto ixx
+if "%~dp0"=="F:\" goto fxx
+if "%~dp0"=="G:\" goto gxx
+if "%~dp0"=="D:\" goto dxx
+if "%~dp0"=="H:\" goto hxx
+if "%~dp0"=="I:\" goto ixx
 goto caly
 :exx
 :: Updating other drive's copies of USB.BAT
@@ -86,9 +134,21 @@ if not exist "D:\USB_DAT\vs\%version%\USB.BAT" copy "%~dp0/USB.BAT" "D:\USB.BAT"
 if not exist "F:\USB_DAT\vs\%version%\USB.BAT" copy "%~dp0/USB.BAT" "F:\USB.BAT"
 if not exist "G:\USB_DAT\vs\%version%\USB.BAT" copy "%~dp0/USB.BAT" "G:\USB.BAT"
 set drive=E
+set intLogType=system
+set intLogImportance=notice
+set intMessage1=Drive is E.
+set intMessage2=If applicable, updated USB.BAT in other mounted drives.
+set intMessage3=That is, D, F, G, and H. 
+call :intLog
 goto caly
 :ixx
 set drive=I
+set intLogType=system
+set intLogImportance=notice
+set intMessage1=Drive is I.
+set intMessage2=Didn't update USB.BAT in any drives.
+set intMessage3=.
+call :intLog
 goto caly
 :fxx
 :: Updating other drive's copies of USB.BAT
@@ -121,6 +181,12 @@ if not exist "E:\USB_DAT\vs\%version%\USB.BAT" copy "%~dp0/USB.BAT" "E:\USB.BAT"
 if not exist "G:\USB_DAT\vs\%version%\USB.BAT" copy "%~dp0/USB.BAT" "D:\USB.BAT"
 if not exist "D:\USB_DAT\vs\%version%\USB.BAT" copy "%~dp0/USB.BAT" "G:\USB.BAT"
 set drive=F
+set intLogType=system
+set intLogImportance=notice
+set intMessage1=Drive is F.
+set intMessage2=If applicable, updated USB.BAT in other mounted drives.
+set intMessage3=That is, D, E, G, and H. 
+call :intLog
 goto caly
 :gxx
 if not exist "E:\USB_DAT\vs\%version%\USB.BAT" del "E:\USB.BAT"
@@ -152,6 +218,12 @@ if not exist "E:\USB_DAT\vs\%version%\USB.BAT" copy "%~dp0/USB.BAT" "E:\USB.BAT"
 if not exist "F:\USB_DAT\vs\%version%\USB.BAT" copy "%~dp0/USB.BAT" "F:\USB.BAT"
 if not exist "D:\USB_DAT\vs\%version%\USB.BAT" copy "%~dp0/USB.BAT" "D:\USB.BAT"
 set drive=G
+set intLogType=system
+set intLogImportance=notice
+set intMessage1=Drive is G.
+set intMessage2=If applicable, updated USB.BAT in other mounted drives.
+set intMessage3=That is, D, E, F, and H. 
+call :intLog
 goto caly
 :dxx
 set drive=D
@@ -183,6 +255,12 @@ if not exist "H:\USB_DAT\vs\%version%\USB.BAT" copy "%~dp0/USB.BAT" "H:\USB.BAT"
 if not exist "E:\USB_DAT\vs\%version%\USB.BAT" copy "%~dp0/USB.BAT" "E:\USB.BAT"
 if not exist "F:\USB_DAT\vs\%version%\USB.BAT" copy "%~dp0/USB.BAT" "F:\USB.BAT"
 if not exist "G:\USB_DAT\vs\%version%\USB.BAT" copy "%~dp0/USB.BAT" "G:\USB.BAT"
+set intLogType=system
+set intLogImportance=notice
+set intMessage1=Drive is D.
+set intMessage2=If applicable, updated USB.BAT in other mounted drives.
+set intMessage3=That is, E, F, G, and H. 
+call :intLog
 goto caly
 :hxx
 if not exist "D:\USB_DAT\vs\%version%\USB.BAT" del "D:\USB.BAT"
@@ -214,8 +292,35 @@ if not exist "E:\USB_DAT\vs\%version%\USB.BAT" copy "%~dp0/USB.BAT" "E:\USB.BAT"
 if not exist "F:\USB_DAT\vs\%version%\USB.BAT" copy "%~dp0/USB.BAT" "F:\USB.BAT"
 if not exist "G:\USB_DAT\vs\%version%\USB.BAT" copy "%~dp0/USB.BAT" "G:\USB.BAT"
 set drive=H
+set intLogType=system
+set intLogImportance=notice
+set intMessage1=Drive is H.
+set intMessage2=If applicable, updated USB.BAT in other mounted drives.
+set intMessage3=That is, D, E, F, and G. 
+call :intLog
 goto caly
 :caly
+if %drive%==no (
+cls
+echo USB.BAT is not in a USB. 
+echo Please copy it into one. 
+echo Press any key to exit...
+set intLogType=system
+set intLogImportance=alert
+set intMessage1=Program is not in a USB!
+set intMessage2=USB.BAT will let user terminate.
+set intMessage3=Waiting for user response...
+call :intLog
+pause>nul
+set intLogType=user
+set intLogImportance=notice
+set intMessage1=User chose to terminate USB.BAT.
+set intMessage2=Because USB.BAT is not in a USB.
+set intMessage3=USB.BAT will now terminate.
+call :intLog
+md "%~dp0USB_DAT\intClose"
+exit
+)
 if "call%called%"=="callyes" (
 set secure=no
 goto %action%
@@ -278,14 +383,6 @@ del "%~dp0/system.ini.bat"
 )
 mode 1000
 echo DOING SYSTEMY STUFF
-:: This section actually doesn't work.
-if %drive%==no (
-cls
-echo USB.BAT is not in a USB. 
-echo Please copy it into one. 
-pause>nul
-exit
-)
 if not exist "%~dp0/log.log" goto logm
 :: Logs opening of USB.BAT
 (
@@ -1333,12 +1430,11 @@ pause
 goto ain
 
 :intLog
-cls
 (
 @echo off
 type "%~dp0USB_DAT\crashReport.log"
 echo. 
-echo %time%, %date%, on %~dp0 - %device%, USB.BAT version %version%... Called: %called%. Action: %~dp0%from%?%action%#%data%...  %intLogType% %intLogImportance% %intMessage1% %intMessage2% %intMessage3%
+echo %time%, %date%, on %device%... Called: %called%. Action: %~dp0%from%?%action%#%data%...  %intLogType% %intLogImportance% ~ %intMessage1% %intMessage2% %intMessage3%
 echo. 
 )>"%~dp0USB_DAT\intLog.tmp"
 del "%~dp0USB_DAT\crashReport.log"
