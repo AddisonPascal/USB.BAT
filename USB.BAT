@@ -323,12 +323,30 @@ exit
 )
 if "call%called%"=="callyes" (
 set secure=no
+set intLogType=system
+set intLogImportance=auth;info
+set intMessage1=Program has been called from an action file or similar.
+set intMessage2=Marked secure as no.
+set intMessage3=Going to action...
+call :intLog
 goto %action%
 set called=no
 set action=ac
 set data=start
+set intLogType=system
+set intLogImportance=info
+set intMessage1=Program has not been called from an action file or similar.
+set intMessage2=Marked called as no, action as ac, and data as start.
+set intMessage3=.
+call :intLog
 )
 set from=USB.BAT
+set intLogType=system
+set intLogImportance=debug
+set intMessage1=Set from as USB.BAT
+set intMessage2=Since it hasn't been called from action file.
+set intMessage3=.
+call :intLog
 set hand=1
 call %~dp0USB_DAT\handfile.bat
 :: Makes 'action files'. 
@@ -339,26 +357,50 @@ echo set action=trashmanage
 echo set from=TrashManage.bat
 echo call USB.BAT
 )>TrashManage.bat
-(
-echo set from=USB.BATSettings.bat
-echo set called=yes
-echo set action=ac
-echo call USB.BAT
-)>USB.BATSettings.bat
+set intLogType=system
+set intLogImportance=info
+set intMessage1=Making action files...
+set intMessage2=Made action file TrashManage.
+set intMessage3=.
+call :intLog
 (
 echo set called=yes
 echo set action=eject
 echo set from=EjectUSB.bat
 echo call USB.BAT
 )>EjectUSB.bat
+set intLogType=system
+set intLogImportance=info
+set intMessage1=Making action files...
+set intMessage2=Made action file EjectUSB.
+set intMessage3=.
+call :intLog
 :: Finally! Sets title. 
 title USB.BAT version %version% (working in %~dp0) (normal area)
+set intLogType=system
+set intLogImportance=debug
+set intMessage1=Set title
+set intMessage2=.
+set intMessage3=.
+call :intLog
 :: Setting default colour scheme.
 set bkc=0
 set txc=f
+set intLogType=system
+set intLogImportance=debug
+set intMessage1=Setting colours...
+set intMessage2=Set default colour scheme.
+set intMessage3=.
+call :intLog
 :: Calling custom colour scheme if existent.
 call "%~dp0/USB_DAT/color.bat"
 color %bkc%%txc%
+set intLogType=system
+set intLogImportance=debug
+set intMessage1=Setting colours...
+set intMessage2=Possibly set custom colour scheme.
+set intMessage3=.
+call :intLog
 if exist "%~dp0USB_DAT\drive.bat" goto checkg
 if exist "%~dp0USB_DAT\damaged.bat" goto fd
 )
@@ -367,9 +409,21 @@ if exist "%~dp0USB_DAT\damaged.bat" goto fd
 @echo off
 echo set dl=%~dp0/
 )>"%~dp0USB_DAT\drive.bat"
+set intLogType=system
+set intLogImportance=debug
+set intMessage1=Saved drive letter.
+set intMessage2=For future reference.
+set intMessage3=.
+call :intLog
 del "%~dp0/system.ini.bat"
 :: If the 'pcs' folder doesn't exist, the program makes it to keep track of which computers have used the native copy of USB.BAT
 md "%~dp0/USB_DAT/pcs"
+set intLogType=system
+set intLogImportance=debug
+set intMessage1=Made pcs folder.
+set intMessage2=In case it didn't exist.
+set intMessage3=.
+call :intLog
 (
 @echo off
 echo. 
@@ -381,7 +435,19 @@ if exist "%~dp0/system.ini.bat" (
 copy "%~dp0/system.ini.bat" "%~dp0/USB_DAT/system.ini.bat"
 del "%~dp0/system.ini.bat"
 )
+set intLogType=system
+set intLogImportance=debug
+set intMessage1=Added current pc to pcs folder.
+set intMessage2=.
+set intMessage3=.
+call :intLog
 mode 1000
+set intLogType=system
+set intLogImportance=debug
+set intMessage1=Fullscreened.
+set intMessage2=Or at least, mode 1000'd.
+set intMessage3=.
+call :intLog
 echo DOING SYSTEMY STUFF
 if not exist "%~dp0/log.log" goto logm
 :: Logs opening of USB.BAT
@@ -414,10 +480,22 @@ goto ttt
 
 :ls
 cls
+set intLogType=auth
+set intLogImportance=notice
+set intMessage1=First-time execution of USB.BAT.
+set intMessage2=User can now set their PIN.
+set intMessage3=Awaiting user response...
+call :intLog
 echo This is the first time you've used USB.BAT. 
 :: Sets PIN
 echo Your PIN: 
 set /p key= ""
+set intLogType=auth
+set intLogImportance=info
+set intMessage1=User has set PIN.
+set intMessage2=Now encrypting...
+set intMessage3=.
+call :intLog
 :: Encrypts PIN with a hex multiplier (hence why a password doesn't work)
 set /a key=%key%*0x10C
 echo. 
@@ -425,6 +503,12 @@ echo.
 @echo off
 echo set key=%key%
 )>"%~dp0/USB_DAT/system.ini.bat"
+set intLogType=auth
+set intLogImportance=info
+set intMessage1=Encrypted PIN.
+set intMessage2=And saved.
+set intMessage3=.
+call :intLog
 (
 @echo off
 type "%~dp0/log.log"
@@ -441,8 +525,20 @@ goto logintt
 :otherlogin
 cls
 :: Deals with automatic login (user-customized in main menu)
+set intLogType=auth
+set intLogImportance=notice
+set intMessage1=User has disabled authentication for today.
+set intMessage2=User can now login.
+set intMessage3=Awaiting user response...
+call :intLog
 echo Press any key to login...
 pause>nul
+set intLogType=auth
+set intLogImportance=notice
+set intMessage1=User has automatically logged in.
+set intMessage2=.
+set intMessage3=.
+call :intLog
 goto bain
 
 :logintt
@@ -450,10 +546,28 @@ goto bain
 set datei=no
 call "%~dp0USB_DAT\today.bat"
 if "%datei%i"=="%date%i" goto otherlogin
-if "%username%%data%"=="%username%exit" exit
+set intLogType=auth
+set intLogImportance=notice
+set intMessage1=User has authentication enabled.
+set intMessage2=User can now login.
+set intMessage3=Awaiting user response...
+call :intLog
 cls
 echo PIN: 
 set /p keyt= ""
+set intLogType=auth
+set intLogImportance=notice
+set intMessage1=User has attempted login...
+set intMessage2=Decrypting PIN
+set intMessage3=and validating...
+call :intLog
+
+
+
+
+
+
+
 echo. 
 :: Decrypts and tests pin using the same hex multiplier
 set /a keyt=%keyt%*0x10C
