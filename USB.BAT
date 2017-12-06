@@ -1,10 +1,10 @@
 :: USB.BAT, by Addison Djatschenko
 :: Used to be very messy code. Still is however it is now fully commented!
-:: Version 30.9
+:: Version 31.0
 
 @echo off
 set newStuff=Working on crash reporting.
-set version=30.9
+set version=31.0
 :: Makes main data folder for USB.BAT
 md USB_DAT
 set intClose=no
@@ -797,14 +797,6 @@ set intMessage1=User has entered main option.
 set intMessage2=Option is:
 set intMessage3=%uo%
 call :intLog
-
-
-
-
-
-
-
-
 :: Goto's to the user pref
 if %uo%==h goto switch
 if %uo%==H goto switch
@@ -849,27 +841,74 @@ set l=18
 if exist "%~dp0encryptstick.exe" (
 if %uo%==%l% goto enc
 )
+set intLogType=user
+set intLogImportance=notice
+set intMessage1=User has entered main option.
+set intMessage2=Option is invalid for main menu.
+set intMessage3=Checking custom commands...
+call :intLog
 :: If the user typed in a Custom Command, it will be executed
 if exist "%~dp0USB_DAT\cmds\%uo%.bat" (
 call :executec
 )
+set intLogType=user
+set intLogImportance=notice
+set intMessage1=User has entered main option.
+set intMessage2=Option is invalid for main menu and custom commands.
+set intMessage3=Trying to go to goto...
+call :intLog
+set intLogType=user
+set intLogImportance=debug
+set intMessage1=Hehehehe!!!
+set intMessage2=User has entered goto as intLog.
+set intMessage3=Awaiting user response...
 :: If the user typed in a system goto, it will be called. 
-goto %uo%
+call :%uo%
 echo Ran command %uo%. 
 :: If the command didn't change the user's location
+set intLogType=user
+set intLogImportance=info
+set intMessage1=User has entered system goto.
+set intMessage2=This system goto results in the user not changing location.
+set intMessage3=Awaiting user response...
+call :intLog
 pause
+set intLogType=user
+set intLogImportance=info
+set intMessage1=User chose to go to menu.
+set intMessage2=Going to menu...
+set intMessage3=.
+call :intLog
 goto ain
 
 :: Changes USB.BAT Device Name
 :device
+set intLogType=system
+set intLogImportance=info
+set intMessage1=Gone to :device,
+set intMessage2=for changing device name.
+set intMessage3=Awaiting user response...
+call :intLog
 cls
 set /p device= "Device Name: "
+set intLogType=user
+set intLogImportance=info
+set intMessage1=User has changed device name
+set intMessage2=to %device%.
+set intMessage3=Going back to menu and saving device name...
+call :intLog
 (
 echo set device=%device%
 )>"%~dp0USB_DAT\device.bat"
 goto ain
 
 :about
+set intLogType=system
+set intLogImportance=info
+set intMessage1=Gone to :about, for viewing USB.BAT info.
+set intMessage2=New stuff: %newStuff%.
+set intMessage3=Awaiting user response...
+call :intLog
 cls
 :: Displays generic info about program
 echo USB.BAT is a program created by Addison Djatschenko which manages your USB. There are many features. This is the update log:
@@ -877,20 +916,56 @@ echo USB.BAT is a program created by Addison Djatschenko which manages your USB.
 echo Version %version%. %newStuff%
 echo. 
 pause>nul
+set intLogType=user
+set intLogImportance=info
+set intMessage1=User chose to go to menu.
+set intMessage2=Going to menu...
+set intMessage3=.
+call :intLog
 goto ain
 
 :so
+set intLogType=system
+set intLogImportance=info
+set intMessage1=Gone to :so, to sign out.
+set intMessage2=Signing out...
+set intMessage3=.
+call :intLog
 md hidden
 :: Locks the locked folder that was unlocked upon signin
 attrib hidden +h +s
+set intLogType=system
+set intLogImportance=info
+set intMessage1=Hidden hidden folder
+set intMessage2=Signing out...
+set intMessage3=.
+call :intLog
 :: Sets secure var to no
 set secure=no
+set intLogType=auth
+set intLogImportance=info
+set intMessage1=Set secure to no.
+set intMessage2=Signing out...
+set intMessage3=.
+call :intLog
 cls
 :: Clears previously entered var for PIN
 set keyt=%random%%random%
+set intLogType=auth
+set intLogImportance=info
+set intMessage1=Re-encrypted PIN.
+set intMessage2=Signed out.
+set intMessage3=Going to login...
+call :intLog
 goto login
 
 :notify
+set intLogType=system
+set intLogImportance=info
+set intMessage1=Gone to :notify, for user set notifications.
+set intMessage2=Displaying notifications...
+set intMessage3=.
+call :intLog
 cls
 echo Reminder:
 echo. 
@@ -903,40 +978,119 @@ echo 1= Ignore
 echo 2= Clear
 :: Sets or changes the notification
 echo 3= Change
+set intLogType=system
+set intLogImportance=debug
+set intMessage1=Displayed reminder screen.
+set intMessage2=Awaiting user response...
+set intMessage3=.
+call :intLog
 set /p uou= "-->"
+set intLogType=user
+set intLogImportance=info
+set intMessage1=User has entered option for reminder screen.
+set intMessage2=Option was:
+set intMessage3=%uou%
+call :intLog
 if %uou%==1 goto ignoren
 if %uou%==2 goto clearn
 if %uou%==3 goto changen
+set intLogType=user
+set intLogImportance=warn
+set intMessage1=User entered invalid option
+set intMessage2=for notification screen!
+set intMessage3=Refreshing...
+call :intLog
 goto notify
 
 :changen
+set intLogType=system
+set intLogImportance=info
+set intMessage1=Gone to :changen
+set intMessage2=for changing notifications.
+set intMessage3=Awaiting user response...
+call :intLog
 cls
 echo What do you want to notify yourself?
 set /p tng= ""
+set intLogType=user
+set intLogImportance=info
+set intMessage1=User entered option for :changen,
+set intMessage2=changing notifications. Option was:
+set intMessage3=%tng%
+call :intLog
 cls
 :: Saves to reminder file
 (
 @echo off
 echo %tng%
 )>"%~dp0USB_DAT\notifs.txt"
+set intLogType=system
+set intLogImportance=debug
+set intMessage1=Saved custom user reminder.
+set intMessage2=.
+set intMessage3=Awaiting user response...
+call :intLog
 cls
 echo Changed
 pause
+set intLogType=user
+set intLogImportance=info
+set intMessage1=User chose to go to menu.
+set intMessage2=Going to menu...
+set intMessage3=.
+call :intLog
 goto ain
 
 :clearn
+set intLogType=system
+set intLogImportance=info
+set intMessage1=Gone to :clearn
+set intMessage2=for clearing notifications.
+set intMessage3=Clearing notifications...
+call :intLog
 :: Deletes notification file.
 del "%~dp0USB_DAT\notifs.txt"
+set intLogType=system
+set intLogImportance=debug
+set intMessage1=Cleared notifications.
+set intMessage2=.
+set intMessage3=Awaiting user response...
+call :intLog
 cls
 echo Cleared
 pause
+set intLogType=user
+set intLogImportance=info
+set intMessage1=User chose to go to menu.
+set intMessage2=Going to menu...
+set intMessage3=.
+call :intLog
 goto ain
 
 :ignoren
+set intLogType=system
+set intLogImportance=info
+set intMessage1=Gone to :ignoren
+set intMessage2=for ignoring notifications.
+set intMessage3=Awaiting user response...
+call :intLog
 :: Does nothing, simply goes back to menu
 cls
 echo Ignored
 pause
+set intLogType=user
+set intLogImportance=info
+set intMessage1=User chose to go to menu.
+set intMessage2=Going to menu...
+set intMessage3=.
+call :intLog
+
+
+
+
+
+
+
 goto ain
 
 :sandy
