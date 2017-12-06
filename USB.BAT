@@ -1,10 +1,10 @@
 :: USB.BAT, by Addison Djatschenko
 :: Used to be very messy code. Still is however it is now fully commented!
-:: Version 30.7
+:: Version 30.8
 
 @echo off
 set newStuff=Working on crash reporting.
-set version=30.7
+set version=30.8
 :: Makes main data folder for USB.BAT
 md USB_DAT
 set intClose=no
@@ -16,6 +16,7 @@ del /Q "%~dp0USB_DAT\intClose"
 @echo off
 echo Closed properly last execution... %intClose%. 
 echo USB.BAT version %version%. Running on %~dp0
+echo Called: %called%. Action: %~dp0%from%?%action%#%data%
 echo. 
 )>"%~dp0USB_DAT\crashReport.log"
 set intLogType=user
@@ -66,10 +67,10 @@ call :intLog
 set drive=no
 set device=USB Drive
 call "%~dp0USB_DAT\device.bat"
-set intLogImportance=debug
+set intLogImportance=info
 set intMessage1=Called device.bat savefile.
 set intMessage2=Gotten device name.
-set intMessage3=Defaults to USB Drive.
+set intMessage3=It is %device%.
 call :intLog
 echo DOING SYSTEMY STUFF
 md "%~dp0/USB_DAT/vs"
@@ -1548,7 +1549,7 @@ goto ain
 @echo off
 type "%~dp0USB_DAT\crashReport.log"
 echo. 
-echo %time%, %date%, on %device%... Called: %called%. Action: %~dp0%from%?%action%#%data%...  %intLogType% %intLogImportance% ~ %intMessage1% %intMessage2% %intMessage3%
+echo %time%, %date%...  %intLogType%	%intLogImportance%	~ %intMessage1% %intMessage2% %intMessage3%
 echo. 
 )>"%~dp0USB_DAT\intLog.tmp"
 del "%~dp0USB_DAT\crashReport.log"
