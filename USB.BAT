@@ -1,10 +1,10 @@
 :: USB.BAT, by Addison Djatschenko
 :: Used to be very messy code. Still is however it is now fully commented!
-:: Version 30.8
+:: Version 30.9
 
 @echo off
 set newStuff=Working on crash reporting.
-set version=30.8
+set version=30.9
 :: Makes main data folder for USB.BAT
 md USB_DAT
 set intClose=no
@@ -322,6 +322,12 @@ call :intLog
 md "%~dp0USB_DAT\intClose"
 exit
 )
+set intLogType=system
+set intLogImportance=debug
+set intMessage1=Program is in a USB.
+set intMessage2=USB.BAT appears to be in a USB.
+set intMessage3=That is, D-I.
+call :intLog
 if "call%called%"=="callyes" (
 set secure=no
 set intLogType=system
@@ -562,13 +568,6 @@ set intMessage1=User has attempted login...
 set intMessage2=Decrypting PIN
 set intMessage3=and validating...
 call :intLog
-
-
-
-
-
-
-
 echo. 
 :: Decrypts and tests pin using the same hex multiplier
 set /a keyt=%keyt%*0x10C
@@ -589,8 +588,20 @@ ren "%~dp0/log2.log" "log.log"
 echo User %username%, on %computername%, incorrectly entered PIN. The time was %time%, on %date%. 
 )>"%~dp0/USB_DAT/warn.txt"
 cls
+set intLogType=auth
+set intLogImportance=alert
+set intMessage1=User has attempted login...
+set intMessage2=PIN is incorrect! USB.BAT will go to login screen.
+set intMessage3=Awaiting user response...
+call :intLog
 echo Incorrect PIN. The owner of this USB will be notified of the attempt. 
 pause>nul
+set intLogType=auth
+set intLogImportance=alert
+set intMessage1=User has attempted login...
+set intMessage2=PIN is incorrect! USB.BAT will go to login screen.
+set intMessage3=User has chosen to go to login screen.
+call :intLog
 goto logintt
 
 :in
@@ -606,21 +617,63 @@ echo User correctly entered PIN.  Called: %called%. Action: %action%#%data%.
 )>log2.log
 del "%~dp0/log.log"
 ren "%~dp0/log2.log" "log.log"
+set intLogType=auth
+set intLogImportance=notice
+set intMessage1=User has attempted login...
+set intMessage2=PIN is correct!
+set intMessage3=Redirecting to menu...
+call :intLog
 :bain
 :: 'Back in' for coming back to menu from app
 set secure=yes
+set intLogType=auth
+set intLogImportance=debug
+set intMessage1=Set secure to yes
+set intMessage2=.
+set intMessage3=.
+call :intLog
 :: Tests if the user has requested to be notified of something
 if exist "%~dp0USB_DAT\notifs.txt" goto notify
 :ain
+set intLogType=system
+set intLogImportance=info
+set intMessage1=Gone to menu.
+set intMessage2=.
+set intMessage3=.
+call :intLog
 :: 'After in' for displaying the entire menu
 :: I really should use drive var but I use %~dp0
 title USB.BAT v%version% - Normal Area in %device%, %~dp0
+set intLogType=system
+set intLogImportance=debug
+set intMessage1=Reset title.
+set intMessage2=.
+set intMessage3=.
+call :intLog
 :: Calls custom colour scheme file and displays
 call "%~dp0/USB_DAT/color.bat"
+set intLogType=system
+set intLogImportance=debug
+set intMessage1=Called custom colours.
+set intMessage2=.
+set intMessage3=.
+call :intLog
 color %bkc%%txc%
+set intLogType=system
+set intLogImportance=debug
+set intMessage1=Displayed custom colours.
+set intMessage2=.
+set intMessage3=.
+call :intLog
 :: Similar to startup of app, makes locked folder.
 md hidden
 attrib hidden -h -s
+set intLogType=system
+set intLogImportance=info
+set intMessage1=Made hidden file, unlocked hidden file.
+set intMessage2=.
+set intMessage3=.
+call :intLog
 :: Clears screen from a lot of internal data!
 cls
 echo. 
@@ -642,12 +695,30 @@ echo Colourcode for Text: %txc%
 echo. 
 if exist "%~dp0iBin.exe" (
 echo Your USB is also working with iBin. USB.BAT has a TrashManager section to use iBin and sync it with .Trash. 
+set intLogType=system
+set intLogImportance=info
+set intMessage1=USB is working with iBin.
+set intMessage2=.
+set intMessage3=.
+call :intLog
 )
 if exist "%~dp0RunSanDiskSecureAccess_Win.exe" (
 echo Your USB is also working with SanDisk Secure Access. You can open SanDisk Secure Access through USB.BAT. 
+set intLogType=system
+set intLogImportance=info
+set intMessage1=USB is working with SanDisk Secure Access.
+set intMessage2=.
+set intMessage3=.
+call :intLog
 )
 if exist "%~dp0encryptstick.exe" (
 echo Your USB is also working with EncryptStick. You can open EncryptStick through USB.BAT. 
+set intLogType=system
+set intLogImportance=info
+set intMessage1=USB is working with EncryptStick.
+set intMessage2=.
+set intMessage3=.
+call :intLog
 )
 echo. 
 echo Enter any Custom Command to run as well!
@@ -712,8 +783,28 @@ set l=18
 if exist "%~dp0encryptstick.exe" (
 echo %l%= Open EncryptStick
 )
+set intLogType=system
+set intLogImportance=debug
+set intMessage1=Displayed entire menu screen.
+set intMessage2=Awaiting user response...
+set intMessage3=.
+call :intLog
 :: Lets the user type in the option they want
 set /p uo= "-->"
+set intLogType=user
+set intLogImportance=info
+set intMessage1=User has entered main option.
+set intMessage2=Option is:
+set intMessage3=%uo%
+call :intLog
+
+
+
+
+
+
+
+
 :: Goto's to the user pref
 if %uo%==h goto switch
 if %uo%==H goto switch
