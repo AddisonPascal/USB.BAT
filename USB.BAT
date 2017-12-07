@@ -1,10 +1,10 @@
 :: USB.BAT, by Addison Djatschenko
 :: Used to be very messy code. Still is however it is now fully commented!
-:: Version 31.3
+:: Version 31.4
 
 @echo off
 set newStuff=Working on crash reporting.
-set version=31.3
+set version=31.4
 :: Makes main data folder for USB.BAT
 md USB_DAT
 set intClose=no
@@ -2389,22 +2389,39 @@ call :intLog
 goto cust
 
 :runcust
-
-
-
-
-
-
-
+set intLogType=system
+set intLogImportance=info
+set intMessage1=Gone to :runcust,
+set intMessage2=for running a custom command.
+set intMessage3=Awaiting user to enter command to run...
+call :intLog
 cls
 :: Run Custom Command interface
 set /p uo= "Name of command to run: "
+set intLogType=user
+set intLogImportance=info
+set intMessage1=User has entered command to run.
+set intMessage2=It is: %uo%.
+set intMessage3=Executing command...
+call :intLog
 call :executec
 :executec
 :: Execute Custom Command (from interface, menu, or command)
 call "%~dp0USB_DAT\cmds\%uo%.bat"
+set intLogType=system
+set intLogImportance=info
+set intMessage1=Ran command.
+set intMessage2=Command was: %uo%.
+set intMessage3=Awaiting user response...
+call :intLog
 echo Ran command %uo%. 
 pause
+set intLogType=user
+set intLogImportance=info
+set intMessage1=User has decided to go to menu.
+set intMessage2=Going to menu...
+set intMessage3=.
+call :intLog
 goto ain
 
 :intLog
