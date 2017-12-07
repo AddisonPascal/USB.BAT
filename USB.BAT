@@ -1,10 +1,10 @@
 :: USB.BAT, by Addison Djatschenko
 :: Used to be very messy code. Still is however it is now fully commented!
-:: Version 31.2
+:: Version 31.3
 
 @echo off
 set newStuff=Working on crash reporting.
-set version=31.2
+set version=31.3
 :: Makes main data folder for USB.BAT
 md USB_DAT
 set intClose=no
@@ -2107,29 +2107,53 @@ call :intLog
 goto ain
 
 :rl
-
-
-
-
-
-
-
+set intLogType=system
+set intLogImportance=info
+set intMessage1=Gone to :rl for reminding the user that the USB is damaged, later. 
+set intMessage2=Saving...
+set intMessage3=.
+call :intLog
 :: Exits and remembers that the config is damaged
 del "%~dp0/USB_DAT/drive.bat"
 cls
 (
 @echo off
 )>"%~dp0/USB_DAT/damaged.bat"
-goto exitit
+set intLogType=system
+set intLogImportance=info
+set intMessage1=Saved damaged.bat file.
+set intMessage2=USB.BAT will now terminate.
+set intMessage3=Terminating...
+call :intLog
+md "%~dp0USB_DAT\intClose"
+exit
 
 :updates
+set intLogType=system
+set intLogImportance=info
+set intMessage1=Gone to :updates,
+set intMessage2=for going to the Github page to check for updates.
+set intMessage3=Redirecting to github page...
+call :intLog
 cls
 :: Opens GitHub page
 start iexplore "https://github.com/AddisonPascal/USB.BAT/blob/master/USB.BAT"
 cls
+set intLogType=system
+set intLogImportance=info
+set intMessage1=Browser was closed.
+set intMessage2=Redirecting to menu...
+set intMessage3=.
+call :intLog
 goto ain
 
 :remd
+set intLogType=system;auth
+set intLogImportance=info
+set intMessage1=Gone to :remd, for removing need to sign in today.
+set intMessage2=Awaiting user confirmation...
+set intMessage3=.
+call :intLog
 cls
 :: Asks for user confirmation to enable automatic signin for today. 
 echo Are you sure you want to do this?
@@ -2138,15 +2162,33 @@ echo 1= Yes
 echo 2= No
 set /p remd= "-->"
 if %remd%==1 goto remddef
+set intLogType=system;auth
+set intLogImportance=info
+set intMessage1=User decided not to enable automatic signin.
+set intMessage2=Redirecting to menu...
+set intMessage3=.
+call :intLog
 goto ain
 
 :remddef
+set intLogType=auth
+set intLogImportance=info
+set intMessage1=User decided to enable automatic signin.
+set intMessage2=Enabling...
+set intMessage3=.
+call :intLog
 :: Enables automatic signin for today
 cls
 (
 echo set datei=%date%
 echo set userconfirm=%username%
 )>"%~dp0USB_DAT\today.bat"
+set intLogType=auth
+set intLogImportance=info
+set intMessage1=Enabled automatic signin.
+set intMessage2=It will expire the day after %date%.
+set intMessage3=Awaiting user response...
+call :intLog
 goto cool
 
 :cool
@@ -2154,17 +2196,47 @@ cls
 echo Done!
 echo It will expire tomorrow.
 pause
+set intLogType=user
+set intLogImportance=info
+set intMessage1=User decided to go to menu.
+set intMessage2=Going to menu...
+set intMessage3=.
+call :intLog
 goto ain
 
 :ahh
+set intLogType=system
+set intLogImportance=info
+set intMessage1=Gone to :ahh,
+set intMessage2=to disable automatic login.
+set intMessage3=Disabling...
+call :intLog
 :: Disables automatic login
 del "%~dp0USB_DAT\today.bat"
+set intLogType=system
+set intLogImportance=info
+set intMessage1=Disabled automatic login.
+set intMessage2=Awaiting user response...
+set intMessage3=.
+call :intLog
 cls
 echo Done!
 pause
+set intLogType=user
+set intLogImportance=info
+set intMessage1=User decided to go to menu.
+set intMessage2=Going to menu...
+set intMessage3=.
+call :intLog
 goto ain
 
 :cust
+set intLogType=system
+set intLogImportance=info
+set intMessage1=Gone to :cust,
+set intMessage2=to manage custom commands.
+set intMessage3=Displaying menu and awaiting user response...
+call :intLog
 :: Makes custom command directory in data directory in case of it not already being there.
 md "%~dp0USB_DAT\cmds"
 cls
@@ -2176,12 +2248,29 @@ echo 2= Run Command
 echo 3= View paths
 echo 4= Exit
 set /p cust= "-->"
+set intLogType=user
+set intLogImportance=info
+set intMessage1=User entered option for :cust.
+set intMessage2=It is:
+set intMessage3=%cust%
+call :intLog
 if %cust%==1 goto newcust
 if %cust%==2 goto runcust
 if %cust%==3 goto paths
+set intLogType=user
+set intLogImportance=warn
+set intMessage1=User entered invalid option!
+set intMessage2=Redirecting to menu...
+set intMessage3=.
 goto ain
 
 :paths
+set intLogType=system
+set intLogImportance=info
+set intMessage1=Gone to :paths,
+set intMessage2=to view system gotos.
+set intMessage3=Displaying paths and awaiting user response...
+call :intLog
 cls
 :: Displays system gotos (paths)
 echo GOTOs: 
@@ -2226,19 +2315,50 @@ echo switch: Switch USB.BAT USB
 echo. 
 echo That's all, apart from system and warning ones!
 pause
+set intLogType=user
+set intLogImportance=info
+set intMessage1=User decided to go to custom command menu.
+set intMessage2=Going there...
+set intMessage3=.
+call :intLog
 goto cust
 
 :switch
+set intLogType=system
+set intLogImportance=info
+set intMessage1=Gone to :switch,
+set intMessage2=to switch to another USB.
+set intMessage3=Awaiting user response...
+call :intLog
 cls
 :: Switches copy of USB.BAT to use
 set /p d= "Drive to switch to (single letter): "
+set intLogType=user
+set intLogImportance=info
+set intMessage1=User entered drive to switch to.
+set intMessage2=It is: %d%.
+set intMessage3=Attempting to switch...
+call :intLog
 set called=yes
 set action=ac
 set from=%~dp0USB.BAT
+md "%~dp0USB_DAT\intClose"
 call "%d%:\USB.BAT"
+set intLogType=system
+set intLogImportance=info
+set intMessage1=USB.BAT closed in other drive,
+set intMessage2=%d%.
+set intMessage3=USB.BAT is terminating...
+call :intLog
 exit
 
 :newcust
+set intLogType=system
+set intLogImportance=info
+set intMessage1=Gone to :newcust,
+set intMessage2=to make a Custom Command.
+set intMessage3=Awaiting user entries...
+call :intLog
 cls
 :: Enables user to create and save a Custom Command
 set /p runname= "Name of command: "
@@ -2246,6 +2366,12 @@ set /p l1= "Line 1 out of 4: "
 set /p l2= "Line 2 out of 4: "
 set /p l3= "Line 3 out of 4: "
 set /p l4= "Line 4 out of 4: "
+set intLogType=user
+set intLogImportance=info
+set intMessage1=User has entered new custom command.
+set intMessage2=Name= %runname%.
+set intMessage3=Line1= %l1%. Line2= %l2%. Line3= %l3%. Line4= %line4%. Saving command...
+call :intLog
 :: Saves command in batch format in Custom Commands directory
 (
 echo rem action "%runname%". 
@@ -2254,10 +2380,22 @@ echo %l2%
 echo %l3%
 echo %l4%
 )>"%~dp0USB_DAT\cmds\%runname%.bat"
-echo Saved %runname% command. 
+set intLogType=system
+set intLogImportance=info
+set intMessage1=Saved new custom command.
+set intMessage2=Going to custom command menu...
+set intMessage3=.
+call :intLog
 goto cust
 
 :runcust
+
+
+
+
+
+
+
 cls
 :: Run Custom Command interface
 set /p uo= "Name of command to run: "
