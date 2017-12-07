@@ -1,10 +1,10 @@
 :: USB.BAT, by Addison Djatschenko
 :: Used to be very messy code. Still is however it is now fully commented!
-:: Version 31.1
+:: Version 31.2
 
 @echo off
 set newStuff=Working on crash reporting.
-set version=31.1
+set version=31.2
 :: Makes main data folder for USB.BAT
 md USB_DAT
 set intClose=no
@@ -17,6 +17,9 @@ del /Q "%~dp0USB_DAT\intClose"
 echo Closed properly last execution... %intClose%. 
 echo USB.BAT version %version%. Running on %~dp0
 echo Called: %called%. Action: %~dp0%from%?%action%#%data%
+echo.
+echo SYSTEM INFO:
+systeminfo
 echo. 
 )>"%~dp0USB_DAT\crashReport.log"
 set intLogType=user
