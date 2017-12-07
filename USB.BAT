@@ -1,10 +1,10 @@
 :: USB.BAT, by Addison Djatschenko
 :: Used to be very messy code. Still is however it is now fully commented!
-:: Version 31.8
+:: Version 32.0
 
 @echo off
-set newStuff=Added an option to browse the locked folder.
-set version=31.8
+set newStuff=Fixed where crashReport thought that email program had closed.
+set version=32.0
 set crashUpTo=0
 call "%~dp0USB_DAT\crashData.bat"
 :: Makes main data folder for USB.BAT
@@ -1508,7 +1508,7 @@ del "%~dp0/log.log"
 ren "%~dp0/log2.log" "log.log"
 set intLogType=system
 set intLogImportance=notice
-set intMessage1=Email program exited.
+set intMessage1=Email program opened.
 set intMessage2=USB.BAT will now exit...
 set intMessage3=.
 call :intLog
