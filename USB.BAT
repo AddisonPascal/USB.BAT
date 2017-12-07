@@ -1,10 +1,10 @@
 :: USB.BAT, by Addison Djatschenko
 :: Used to be very messy code. Still is however it is now fully commented!
-:: Version 32.0
+:: Version 32.1
 
 @echo off
-set newStuff=Fixed where crashReport thought that email program had closed.
-set version=32.0
+set newStuff=Fixed problem with ejection.
+set version=32.1
 set crashUpTo=0
 call "%~dp0USB_DAT\crashData.bat"
 :: Makes main data folder for USB.BAT
@@ -1552,7 +1552,7 @@ ren "%~dp0/log2.log" "log.log"
 (
 @echo off
 echo ^<script^>
-echo alert^('The device, %device%, %~dp0 can now be safely ejected AFTER you have used Windows' safe eject. '^);
+echo alert^('The device, %device%, %~dp0 can now be safely ejected AFTER you have used Windows safe eject. '^);
 echo ^</script^>
 )>"%~dp0USB_DAT\alert.html"
 attrib log.log +h +s
@@ -1561,16 +1561,10 @@ set intLogType=system
 set intLogImportance=info
 set intMessage1=Displaying message
 set intMessage2=and then closing USB.BAT.
-set intMessage3=Hopefully, end of log now.
+set intMessage3=End of log now.
 call :intLog
 md "%~dp0USB_DAT\intClose"
 "%~dp0USB_DAT\alert.html"
-set intLogType=user
-set intLogImportance=alert
-set intMessage1=User did not take out drive!
-set intMessage2=USB.BAT will terminate anyway...
-set intMessage3=Terminating...
-call :intLog
 exit
 
 :bf
