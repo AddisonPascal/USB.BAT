@@ -1,10 +1,10 @@
 :: USB.BAT, by Addison Djatschenko
 :: Used to be very messy code. Still is however it is now fully commented!
-:: Version 31.6
+:: Version 31.7
 
 @echo off
 set newStuff=Finished crash reporting!
-set version=31.6
+set version=31.7
 set crashUpTo=0
 call "%~dp0USB_DAT\crashData.bat"
 :: Makes main data folder for USB.BAT
@@ -2153,7 +2153,7 @@ start iexplore "https://github.com/AddisonPascal/USB.BAT/blob/master/USB.BAT"
 cls
 set intLogType=system
 set intLogImportance=info
-set intMessage1=Browser was closed.
+set intMessage1=Browser was opened.
 set intMessage2=Redirecting to menu...
 set intMessage3=.
 call :intLog
