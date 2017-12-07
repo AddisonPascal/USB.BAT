@@ -1,17 +1,29 @@
 :: USB.BAT, by Addison Djatschenko
 :: Used to be very messy code. Still is however it is now fully commented!
-:: Version 31.4
+:: Version 31.6
 
 @echo off
-set newStuff=Working on crash reporting.
-set version=31.4
+set newStuff=Finished crash reporting!
+set version=31.6
+set crashUpTo=0
+call "%~dp0USB_DAT\crashData.bat"
 :: Makes main data folder for USB.BAT
 md USB_DAT
+md "%~dp0USB_DAT\crashes"
 set intClose=no
 if exist "%~dp0USB_DAT\intClose" (
 set intClose=yes
 del /Q "%~dp0USB_DAT\intClose"
 )
+if %intClose%==no (
+ren "%~dp0USB_DAT\crashReport.log" "Crash report %crashUpTo%.log"
+move "%~dp0USB_DAT\Crash report %crashUpTo%.log" "%~dp0USB_DAT\crashes"
+set /a crashUpTo=%crashUpTo%+1
+)
+(
+@echo off
+echo set crashUpTo=%crashUpTo%
+)>"%~dp0USB_DAT\crashData.bat"
 (
 @echo off
 echo Closed properly last execution... %intClose%. 
