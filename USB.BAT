@@ -1,10 +1,10 @@
 :: USB.BAT, by Addison Djatschenko
 :: Used to be very messy code. Still is however it is now fully commented!
-:: Version 31.0
+:: Version 31.1
 
 @echo off
 set newStuff=Working on crash reporting.
-set version=31.0
+set version=31.1
 :: Makes main data folder for USB.BAT
 md USB_DAT
 set intClose=no
@@ -1084,16 +1084,17 @@ set intMessage1=User chose to go to menu.
 set intMessage2=Going to menu...
 set intMessage3=.
 call :intLog
-
-
-
-
-
-
-
 goto ain
 
 :sandy
+goto sandiskAccess
+:sandiskAccess
+set intLogType=system
+set intLogImportance=info
+set intMessage1=Gone to :sandiskAccess
+set intMessage2=for opening sandisk.
+set intMessage3=Opening...
+call :intLog
 cls
 echo SanDisk Secure Access has been opened and is running. 
 :: Executes SanDisk Secure Access (third-party software)
@@ -1103,11 +1104,29 @@ goto s2
 :s2
 cls
 :: Goes here if SanDisk Secure Access was exited or failed to execute (ie was already open)
+set intLogType=system
+set intLogImportance=warn
+set intMessage1=SanDisk Secure Access was exited or failed to execute.
+set intMessage2=Awaiting user response...
+set intMessage3=.
+call :intLog
 echo SanDisk Secure Access was exited or was already opened. 
 pause>nul
+set intLogType=user
+set intLogImportance=info
+set intMessage1=User chose to go to menu.
+set intMessage2=Going to menu...
+set intMessage3=.
+call :intLog
 goto ain
 
 :enc
+set intLogType=system
+set intLogImportance=info
+set intMessage1=Gone to :enc
+set intMessage2=for opening EncryptStick.
+set intMessage3=Opening...
+call :intLog
 cls
 :: Executes EncryptStick (third-party software)
 echo EncryptStick has been opened and is running. 
@@ -1117,11 +1136,29 @@ goto e2
 :e2
 cls
 :: Goes here if EncryptStick was exited or failed to execute (ie was already open)
+set intLogType=system
+set intLogImportance=warn
+set intMessage1=EncryptStick was exited or failed to execute.
+set intMessage2=Awaiting user response...
+set intMessage3=.
+call :intLog
 echo EncryptStick was exited or was already opened. 
 pause>nul
+set intLogType=user
+set intLogImportance=info
+set intMessage1=User chose to go to menu.
+set intMessage2=Going to menu...
+set intMessage3=.
+call :intLog
 goto ain
 
 :dm
+set intLogType=system
+set intLogImportance=info
+set intMessage1=Gone to :dm
+set intMessage2=for dimming the screen.
+set intMessage3=Figuring out colour codes for dim...
+call :intLog
 :: Dim function
 if %bkc%==9 set bkc=1
 if %bkc%==a set bkc=2
@@ -1139,17 +1176,41 @@ if %txc%==e set txc=6
 if %txc%==f set txc=7
 :: Sets dimmed colour scheme
 color %bkc%%txc%
+set intLogType=system
+set intLogImportance=debug
+set intMessage1=Dimming screen...
+set intMessage2=Set dimmed colours.
+set intMessage3=Saving dimmed colours...
+call :intLog
 :: Saves dimmed colour scheme.
 (
 @echo off
 echo set bkc=%bkc%
 echo set txc=%txc%
 )>"%~dp0/USB_DAT/color.bat"
+set intLogType=system
+set intLogImportance=debug
+set intMessage1=Dimmed screen.
+set intMessage2=Saved dimmed colours.
+set intMessage3=Waiting for user response...
+call :intLog
 echo Done!
 pause>nul
+set intLogType=user
+set intLogImportance=info
+set intMessage1=User chose to go to menu.
+set intMessage2=Going to menu...
+set intMessage3=.
+call :intLog
 goto ain
 
 :bm
+set intLogType=system
+set intLogImportance=info
+set intMessage1=Gone to :bm
+set intMessage2=for brightening the screen.
+set intMessage3=Figuring out colour codes for brightened mode...
+call :intLog
 cls
 :: Brighten function
 if %txc%==1 set txc=9
@@ -1166,6 +1227,12 @@ if %bkc%==4 set bkc=c
 if %bkc%==5 set bkc=d
 if %bkc%==6 set bkc=e
 if %bkc%==7 set bkc=f
+set intLogType=system
+set intLogImportance=debug
+set intMessage1=Brightening screen...
+set intMessage2=Set brightened colours.
+set intMessage3=Saving brightened colours...
+call :intLog
 :: Sets brighter colour scheme
 color %bkc%%txc%
 :: Saves brighter colour scheme
@@ -1174,11 +1241,29 @@ color %bkc%%txc%
 echo set bkc=%bkc%
 echo set txc=%txc%
 )>"%~dp0/USB_DAT/color.bat"
+set intLogType=system
+set intLogImportance=debug
+set intMessage1=Brightened screen.
+set intMessage2=Saved brightened colours.
+set intMessage3=Waiting for user response...
+call :intLog
 echo Done!
 pause>nul
+set intLogType=user
+set intLogImportance=info
+set intMessage1=User chose to go to menu.
+set intMessage2=Going to menu...
+set intMessage3=.
+call :intLog
 goto ain
 
 :hca
+set intLogType=system
+set intLogImportance=info
+set intMessage1=Gone to :hca
+set intMessage2=for setting colours to High Contrast Mode 1.
+set intMessage3=Figuring out colour codes for high contrast...
+call :intLog
 cls
 :: High Contrast function 1
 if %bkc%==9 set bkc=1
@@ -1197,17 +1282,41 @@ if %txc%==6 set txc=e
 if %txc%==7 set txc=f
 :: Sets new contrast scheme
 color %bkc%%txc%
+set intLogType=system
+set intLogImportance=debug
+set intMessage1=High contrasting screen...
+set intMessage2=Set colours.
+set intMessage3=Saving colours...
+call :intLog
 :: Saves new contrast scheme
 (
 @echo off
 echo set bkc=%bkc%
 echo set txc=%txc%
 )>"%~dp0/USB_DAT/color.bat"
+set intLogType=system
+set intLogImportance=debug
+set intMessage1=High contrasted screen.
+set intMessage2=Saved colours.
+set intMessage3=Waiting for user response...
+call :intLog
 echo Done!
 pause>nul
+set intLogType=user
+set intLogImportance=info
+set intMessage1=User chose to go to menu.
+set intMessage2=Going to menu...
+set intMessage3=.
+call :intLog
 goto ain
 
 :hcb
+set intLogType=system
+set intLogImportance=info
+set intMessage1=Gone to :hcb
+set intMessage2=for setting colours to High Contrast Mode 2.
+set intMessage3=Figuring out colour codes for high contrast...
+call :intLog
 cls
 :: High Contrast function 2
 if %bkc%==1 set bkc=9
@@ -1226,23 +1335,53 @@ if %txc%==e set txc=6
 if %txc%==f set txc=7
 :: Sets new contrast scheme
 color %bkc%%txc%
+set intLogType=system
+set intLogImportance=debug
+set intMessage1=High contrasting screen...
+set intMessage2=Set colours.
+set intMessage3=Saving colours...
 :: Saves new contrast scheme
 (
 @echo off
 echo set bkc=%bkc%
 echo set txc=%txc%
 )>"%~dp0/USB_DAT/color.bat"
+set intLogType=system
+set intLogImportance=debug
+set intMessage1=High contrasted screen.
+set intMessage2=Saved colours.
+set intMessage3=Waiting for user response...
+call :intLog
 echo Done!
 pause>nul
+set intLogType=user
+set intLogImportance=info
+set intMessage1=User chose to go to menu.
+set intMessage2=Going to menu...
+set intMessage3=.
+call :intLog
 goto ain
 
 :folds
+set intLogType=system
+set intLogImportance=info
+set intMessage1=Gone to :folds
+set intMessage2=for viewing data folders' and files' directories.
+set intMessage3=Displaying folders...
+call :intLog
 cls
 :: Displays data folder directories
 echo PCs folder: %~dp0USB_DAT\pcs
 echo VERSIONS folder: %~dp0USB_DAT\vs
 echo USB.BAT folder (drive): %~dp0
-echo Log folder: %~dp0
+echo Main data folder: %~dp0USB_DAT
+echo Crash report file: %~dp0USB_DAT\crashReport.txt
+set intLogType=system
+set intLogImportance=debug
+set intMessage1=Displayed folders and files.
+set intMessage2=.
+set intMessage3=Awaiting user response...
+call :intLog
 pause>nul
 :: Logs action
 (
@@ -1254,9 +1393,21 @@ echo User looked at folders
 )>log2.log
 del "%~dp0/log.log"
 ren "%~dp0/log2.log" "log.log"
+set intLogType=user
+set intLogImportance=info
+set intMessage1=User chose to go to menu.
+set intMessage2=Going to menu...
+set intMessage3=.
+call :intLog
 goto ain
 
 :zlog
+set intLogType=system
+set intLogImportance=info
+set intMessage1=Gone to :zlog
+set intMessage2=for copying log to clipboard.
+set intMessage3=Copying log to clipboard...
+call :intLog
 :: Logs action
 (
 @echo off
@@ -1273,22 +1424,30 @@ cls
 @echo off
 type "%~dp0/log.log"
 )|clip
+set intLogType=system
+set intLogImportance=info
+set intMessage1=Copied log to clipboard.
+set intMessage2=.
+set intMessage3=Awaiting user response...
+call :intLog
 cls
 echo Copied log to clipboard!
 pause
+set intLogType=user
+set intLogImportance=info
+set intMessage1=User chose to go to menu.
+set intMessage2=Going to menu...
+set intMessage3=.
+call :intLog
 goto ain
-(
-@echo off
-type "%~dp0/log.log"
-echo. 
-echo %username%, on %computername%, on %time%, %date%, USB.BAT v%version%:
-echo USB.BAT exited. 
-)>log2.log
-del "%~dp0/log.log"
-ren "%~dp0/log2.log" "log.log"
-exit
 
 :contact
+set intLogType=system
+set intLogImportance=info
+set intMessage1=Gone to :contact
+set intMessage2=for sending an email to Addison Djatschenko.
+set intMessage3=Opening email program...
+call :intLog
 :: Logs action
 (
 @echo off
@@ -1310,9 +1469,22 @@ echo USB.BAT exited.
 )>log2.log
 del "%~dp0/log.log"
 ren "%~dp0/log2.log" "log.log"
+set intLogType=system
+set intLogImportance=notice
+set intMessage1=Email program exited.
+set intMessage2=USB.BAT will now exit...
+set intMessage3=.
+call :intLog
+md "%~dp0USB_DAT\intClose"
 exit
 
 :eject
+set intLogType=system
+set intLogImportance=info
+set intMessage1=Gone to :eject
+set intMessage2=for ejecting the USB.
+set intMessage3=Displaying notification...
+call :intLog
 md hidden
 :: Locks folders
 attrib hidden +h +s
@@ -1348,10 +1520,29 @@ echo ^</script^>
 )>"%~dp0USB_DAT\alert.html"
 attrib log.log +h +s
 attrib log2.log +h +s
+set intLogType=system
+set intLogImportance=info
+set intMessage1=Displaying message
+set intMessage2=and then closing USB.BAT.
+set intMessage3=Hopefully, end of log now.
+call :intLog
+md "%~dp0USB_DAT\intClose"
 "%~dp0USB_DAT\alert.html"
+set intLogType=user
+set intLogImportance=alert
+set intMessage1=User did not take out drive!
+set intMessage2=USB.BAT will terminate anyway...
+set intMessage3=Terminating...
+call :intLog
 exit
 
 :bf
+set intLogType=system
+set intLogImportance=info
+set intMessage1=Gone to :bf
+set intMessage2=for opening CMD in current drive.
+set intMessage3=Opening CMD...
+call :intLog
 :: Logs action
 (
 @echo off
@@ -1373,6 +1564,13 @@ echo USB.BAT exited.
 )>log2.log
 del "%~dp0/log.log"
 ren "%~dp0/log2.log" "log.log"
+set intLogType=system
+set intLogImportance=info
+set intMessage1=CMD window closed...
+set intMessage2=USB.BAT will now terminate.
+set intMessage3=Terminating...
+call :intLog
+md "%~dp0USB_DAT\intClose"
 exit
 
 :exitit
@@ -1392,9 +1590,22 @@ ren "%~dp0/log2.log" "log.log"
 attrib log.log +h +s
 attrib log2.log +h +s
 :: Exits
+set intLogType=system
+set intLogImportance=info
+set intMessage1=USB.BAT will now exit.
+set intMessage2=.
+set intMessage3=Terminating...
+call :intLog
+md "%~dp0USB_DAT\intClose"
 exit
 
 :xlog
+set intLogType=system
+set intLogImportance=info
+set intMessage1=Gone to :xlog,
+set intMessage2=for viewing logfile.
+set intMessage3=Displaying incomplete log...
+call :intLog
 :: Logs action
 (
 @echo off
@@ -1411,29 +1622,72 @@ ren "%~dp0/log2.log" "log.log"
 cls
 :: Views potentially semi-incomplete log.
 type "%~dp0/log.log"
+set intLogType=system
+set intLogImportance=info
+set intMessage1=Displayed potentially incomplete logfile.
+set intMessage2=Awaiting user response...
+set intMessage3=.
+call :intLog
 echo. 
 echo. 
 echo. 
 echo That was the log, which may of been incomplete. 
 echo Press any key to view the complete log. 
 pause>nul
+set intLogType=user
+set intLogImportance=info
+set intMessage1=User chose to view complete log.
+set intMessage2=Opening complete log in .log file viewer...
+set intMessage3=.
+call :intLog
 :: Views full log in default .log file editor
 "%~dp0/log.log"
+set intLogType=system
+set intLogImportance=info
+set intMessage1=Logfile viewer closed.
+set intMessage2=USB.BAT will now terminate.
+set intMessage3=Terminating...
+call :intLog
+md "%~dp0USB_DAT\intClose"
 exit
 
 :cpin
+set intLogType=auth
+set intLogImportance=info
+set intMessage1=Gone to :cpin, to change PIN.
+set intMessage2=Waiting for user to change PIN...
+set intMessage3=.
+call :intLog
 cls
 echo New PIN: 
 :: Allows user to change PIN
 set /p key= ""
+set intLogType=auth;user
+set intLogImportance=notice
+set intMessage1=User has changed PIN.
+set intMessage2=Encrypting PIN...
+set intMessage3=.
+call :intLog
 :: Encrypts PIN with hex multiplier
 set /a key=%key%*0x10C
+set intLogType=auth
+set intLogImportance=info
+set intMessage1=Encrypted new PIN.
+set intMessage2=Saving PIN...
+set intMessage3=.
+call :intLog
 echo. 
 :: Saves PIN
 (
 @echo off
 echo set key=%key%
 )>"%~dp0/USB_DAT/system.ini.bat"
+set intLogType=auth
+set intLogImportance=info
+set intMessage1=Saved PIN.
+set intMessage2=.
+set intMessage3=Awaiting user response...
+call :intLog
 :: Logs action
 (
 @echo off
@@ -1445,10 +1699,21 @@ echo User changed PIN.
 cls
 echo Changed PIN. 
 pause>nul
+set intLogType=user
+set intLogImportance=info
+set intMessage1=User chose to go to menu.
+set intMessage2=Going to menu...
+set intMessage3=.
+call :intLog
 goto ain
-ren "%~dp0/log2.log" "log.log"
 
 :trashmanage
+set intLogType=system
+set intLogImportance=info
+set intMessage1=Gone to :trashmanage
+set intMessage2=for going to TrashManage.
+set intMessage3=.
+call :intLog
 :: Opens TrashManage
 cls
 :: Makes trash can files
@@ -1457,6 +1722,12 @@ md iBin
 mode 1000
 :: Sets title (this used to be a separate program)
 title TrashManager
+set intLogType=system
+set intLogImportance=debug
+set intMessage1=Changed title
+set intMessage2=for TrashManage.
+set intMessage3=.
+call :intLog
 :: Logs action
 (
 @echo off
@@ -1474,20 +1745,50 @@ goto starttm
 cls
 :: Displays security warning for Windows.
 echo Warning: On some antivirus systems, USB.BAT's TrashManage section is classified as a virus. Although this is not the case, soon TrashManage may be deleted. If it does, email addison.djatschenko@outlook.com to get another copy or restore it from the Quarantine section. 
+set intLogType=system
+set intLogImportance=debug
+set intMessage1=Displayed TrashManage warning.
+set intMessage2=.
+set intMessage3=.
+call :intLog
 :: If iBin (a third-party program) isn't installed on the drive, the program gives instructions on how to recycle items.
 if not exist "%~dp0iBin.exe" (
 echo To dump a file into iBin or .Trash, simply drag it from Windows Explorer of File Explorer from its previous directory. 
+set intLogType=system
+set intLogImportance=info
+set intMessage1=iBin is not installed on this USB.
+set intMessage2=Displayed instructions for recycling.
+set intMessage3=Synchronising recycle bins...
+call :intLog
 )
 :: And if it is.
 if exist "%~dp0iBin.exe" (
 echo To dump a file into iBin, simply check that iBin.exe is running, and select the file and do START + delete. 
+set intLogType=system
+set intLogImportance=info
+set intMessage1=iBin is installed on this USB.
+set intMessage2=Displayed instructions for recycling.
+set intMessage3=Synchronising recycle bins...
+call :intLog
 )
 echo. 
 :: Synchronised recycle bin folders
 echo Copying iBin/* to .Trash/*
 copy "%~dp0/iBin" "%~dp0/.Trash"
+set intLogType=system
+set intLogImportance=info
+set intMessage1=Synchronised iBin to .Trash.
+set intMessage2=.
+set intMessage3=Synchronising .Trash to iBin...
+call :intLog
 echo Copying .Trash/* to iBin/*
 copy "%~dp0/.Trash" "%~dp0/iBin"
+set intLogType=system
+set intLogImportance=info
+set intMessage1=Synchronised all trash folders.
+set intMessage2=.
+set intMessage3=Awaiting user response...
+call :intLog
 echo. 
 echo Done Managing. The iBin directory is %~dp0iBin. The .Trash directory is %~dp0.Trash. 
 echo 1= Exit
@@ -1499,6 +1800,12 @@ if exist "%~dp0iBin.exe" (
 echo 4= Open iBin.exe, a USB dumping system by iBin
 )
 set /p t= "-->"
+set intLogType=user
+set intLogImportance=info
+set intMessage1=User has entered option for :starttm.
+set intMessage2=Option is:
+set intMessage3=%t%
+call :intLog
 if %t%==1 (
 if %secure%==no goto ac
 goto ain
@@ -1508,9 +1815,21 @@ if %t%==3 goto factoryreset
 if exist "%~dp0iBin.exe" (
 if %t%==4 goto ibin
 )
+set intLogType=user
+set intLogImportance=warn
+set intMessage1=User has entered an invalid option for :starttm!
+set intMessage2=.
+set intMessage3=Refreshing...
+call :intLog
 goto starttm
 
 :ibin
+set intLogType=system
+set intLogImportance=info
+set intMessage1=Gone to :ibin
+set intMessage2=for opening iBin.
+set intMessage3=Opening iBin...
+call :intLog
 cls
 echo iBin was opened and is running. 
 :: Opens iBin
@@ -1520,11 +1839,29 @@ goto ibint
 :ibint
 cls
 :: This is displayed if iBin was exited or failed to execute (ie if it was already running)
+set intLogType=system
+set intLogImportance=warn
+set intMessage1=iBin was exited or failed to execute.
+set intMessage2=Awaiting user response...
+set intMessage3=.
+call :intLog
 echo iBin was exited or was already running. 
 pause>nul
+set intLogType=user
+set intLogImportance=info
+set intMessage1=User chose to go to TrashManage.
+set intMessage2=Going to TrashManage...
+set intMessage3=.
+call :intLog
 goto starttm
 
 :factoryreset
+set intLogType=system
+set intLogImportance=info
+set intMessage1=Gone to :factoryreset, to factory reset USB.BAT!
+set intMessage2=Factory resetting...
+set intMessage3=.
+call :intLog
 cls
 :: Recycles everything apart from USB.BAT since USB.BAT expands from the one program.
 move "%~dp0\log.log" "%~dp0iBin"
@@ -1535,11 +1872,30 @@ move "%~dp0USB_DAT\system.ini.bat" "%~dp0iBin"
 move "%~dp0USB_DAT\notifs.txt" "%~dp0iBin"
 move "%~dp0USB_DAT\warn.txt" "%~dp0iBin"
 cls
-echo Done. 
+set intLogType=system
+set intLogImportance=info
+set intMessage1=Factory reset complete!
+set intMessage2=Awaiting user response...
+set intMessage3=.
+call :intLog
+echo Done. Press any key to exit...
 pause>nul
-goto starttm
+set intLogType=user
+set intLogImportance=info
+set intMessage1=User chose to exit USB.BAT.
+set intMessage2=USB.BAT will now terminate.
+set intMessage3=Terminating...
+call :intLog
+md "%~dp0USB_DAT\intClose"
+exit
 
 :colorc
+set intLogType=system
+set intLogImportance=info
+set intMessage1=Gone to :colorc, to change custom colours.
+set intMessage2=Displaying colours and awaiting user response...
+set intMessage3=.
+call :intLog
 cls
 :: Displays current colour scheme code.
 echo Current Colourcode: %bkc% %txc%. 
@@ -1556,6 +1912,18 @@ echo 7= White
 echo 8= Gray
 :: Allows user to set custom background scheme. If nothing is entered nothing will change
 set /p bkc= "-->"
+set intLogType=user
+set intLogImportance=info
+set intMessage1=User has set colour code for background.
+set intMessage2=It is:
+set intMessage3=%bkc%
+call :intLog
+set intLogType=system
+set intLogImportance=info
+set intMessage1=.
+set intMessage2=Displaying colours and awaiting user response...
+set intMessage3=.
+call :intLog
 echo. 
 :: Displays colour codes for text.
 echo TEXT COLOR: 
@@ -1570,17 +1938,51 @@ echo 7= White
 echo 8= Gray
 :: Allows user to set custom text scheme. If nothing is entered nothing will change
 set /p txc= "-->"
-pause
+set intLogType=user
+set intLogImportance=info
+set intMessage1=User has set colour code for text.
+set intMessage2=It is: %txc%
+set intMessage3=Awaiting user response...
+call :intLog
+echo Press any key to exit...
+pause>nul
+set intLogType=user
+set intLogImportance=info
+set intMessage1=User chose to exit USB.BAT.
+set intMessage2=.
+set intMessage3=Saving colour file...
+call :intLog
 :: Saves colour scheme settings
+if "%bkc%"=="%txc%" (
+set intLogType=system
+set intLogImportance=error
+set intMessage1=Colours are the same!!
+set intMessage2=.
+set intMessage3=Colours will not work!
+call :intLog
+)
 (
 @echo off
 echo set bkc=%bkc%
 echo set txc=%txc%
 )>"%~dp0/USB_DAT/color.bat"
+set intLogType=system
+set intLogImportance=info
+set intMessage1=Saved colour file.
+set intMessage2=.
+set intMessage3=Terminating...
+call :intLog
 :: Exits
+md "%~dp0USB_DAT\intClose"
 exit
 
 :tc
+set intLogType=system
+set intLogImportance=info
+set intMessage1=Gone to :tc,
+set intMessage2=to toggle colours.
+set intMessage3=Toggling, setting, and saving...
+call :intLog
 cls
 color %txc%%bkc%
 (
@@ -1589,8 +1991,21 @@ echo set bkc=%txc%
 echo set txc=%bkc%
 )>"%~dp0/USB_DAT/color.bat"
 cls
-echo Done!
+echo Done! Press any key to exit...
+set intLogType=system
+set intLogImportance=info
+set intMessage1=Toggled colours.
+set intMessage2=Set colours. Saved colours.
+set intMessage3=Awaiting user response...
+call :intLog
 pause>nul
+set intLogType=user
+set intLogImportance=info
+set intMessage1=User chose to exit USB.BAT
+set intMessage2=USB.BAT will now terminate.
+set intMessage3=Terminating...
+call :intLog
+md "%~dp0USB_DAT\intClose"
 exit
 
 :checkg
@@ -1598,18 +2013,42 @@ exit
 cls
 call "%~dp0USB_DAT\drive.bat"
 if "%dl%" NEQ "%~dp0/" goto fd
+set intLogType=system
+set intLogImportance=debug
+set intMessage1=There is not a problem with this drive.
+set intMessage2=.
+set intMessage3=.
+call :intLog
 goto d
 
 :fd
+set intLogType=system
+set intLogImportance=alert
+set intMessage1=There is potentially a problem with this drive.
+set intMessage2=Displaying message...
+set intMessage3=Awaiting user response...
+call :intLog
 cls
 echo This drive, %~dp0, may have a problem. 
 echo 1= Fix
 echo 2= Remind me later
 set /p rrl= "-->"
+set intLogType=user
+set intLogImportance=info
+set intMessage1=User has entered option for :fd.
+set intMessage2=It is:
+set intMessage3=%rrl%
+call :intLog
 if %rrl%==1 goto fixd
 if %rrl%==2 goto rl
 
 :fixd
+set intLogType=system
+set intLogImportance=info
+set intMessage1=Fixing drive...
+set intMessage2=Timing out...
+set intMessage3=.
+call :intLog
 cls
 :: Fixes config
 del %~dp0USB_DAT\drive.bat
@@ -1617,12 +2056,31 @@ del "%~dp0USB_DAT\damaged.bat"
 cls
 echo Fixing...
 TIMEOUT /T 1 /NOBREAK >nul
+set intLogType=system
+set intLogImportance=info
+set intMessage1=Fixed drive.
+set intMessage2=Awaiting user response...
+set intMessage3=.
+call :intLog
 cls
-echo Done! Your drive has also been freed of 12 bytes of space!
+echo Done! Your drive has also been freed of 12 bytes of space! Press any key to exit.
 pause>nul
-goto exitit
+set intLogType=user
+set intLogImportance=info
+set intMessage1=User chose to exit USB.BAT.
+set intMessage2=USB.BAT will now terminate.
+set intMessage3=Terminating...
+call :intLog
+md "%~dp0USB_DAT\intClose"
+exit
 
 :cl
+set intLogType=system
+set intLogImportance=info
+set intMessage1=Gone to :cl,
+set intMessage2=for clearing security warnings.
+set intMessage3=Clearing warnings...
+call :intLog
 :: Clears security warnings
 cls
 (
@@ -1630,10 +2088,29 @@ cls
 echo No warnings to show :-^). 
 )>%~dp0/USB_DAT/warn.txt
 cls
+set intLogType=system
+set intLogImportance=info
+set intMessage1=Cleared security warnings.
+set intMessage2=Awaiting user response...
+set intMessage3=.
+call :intLog
 pause
+set intLogType=user
+set intLogImportance=info
+set intMessage1=User chose to go back to menu.
+set intMessage2=Going back to menu...
+set intMessage3=.
+call :intLog
 goto ain
 
 :rl
+
+
+
+
+
+
+
 :: Exits and remembers that the config is damaged
 del "%~dp0/USB_DAT/drive.bat"
 cls
