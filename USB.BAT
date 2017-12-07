@@ -1,10 +1,10 @@
 :: USB.BAT, by Addison Djatschenko
 :: Used to be very messy code. Still is however it is now fully commented!
-:: Version 31.7
+:: Version 31.8
 
 @echo off
-set newStuff=Finished crash reporting!
-set version=31.7
+set newStuff=Added an option to browse the locked folder.
+set version=31.8
 set crashUpTo=0
 call "%~dp0USB_DAT\crashData.bat"
 :: Makes main data folder for USB.BAT
@@ -755,6 +755,8 @@ echo R= Remove need to sign in for today.
 echo A= About USB.BAT
 :: Loggs off from USB
 echo S= Sign out
+:: Locked folder
+echo F= Open locked folder
 :: Manages reminders (notifications) so the user can send a message to him/herself
 echo 0= Reminders
 :: Opens command prompt window in drive root
@@ -829,6 +831,8 @@ if %uo%==d goto device
 if %uo%==D goto device
 if %uo%==s goto so
 if %uo%==S goto so
+if %uo%==f goto lockedFolder
+if %uo%==F goto lockedFolder
 if %uo%==1 goto bf
 if %uo%==2 goto eject
 if %uo%==3 goto xlog
@@ -915,6 +919,24 @@ call :intLog
 (
 echo set device=%device%
 )>"%~dp0USB_DAT\device.bat"
+goto ain
+
+:lockedFolder
+set intLogType=system
+set intLogImportance=info
+set intMessage1=Gone to :lockedFolder, for opening the locked folder.
+set intMessage2=.
+set intMessage3=Opening locked folder...
+call :intLog
+cls
+explorer "%~dp0hidden"
+set intLogType=system
+set intLogImportance=info
+set intMessage1=Opened explorer.
+set intMessage2=Going back to menu...
+set intMessage3=.
+call :intLog
+cls
 goto ain
 
 :about
