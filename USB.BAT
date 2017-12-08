@@ -14,7 +14,7 @@ md "%~dp0USB_DAT\crashes"
 set intClose=no
 if exist "%~dp0USB_DAT\intClose" (
 set intClose=yes
-del /Q "%~dp0USB_DAT\intClose"
+rd "%~dp0USB_DAT\intClose" /s /q
 )
 if %intClose%==no (
 ren "%~dp0USB_DAT\crashReport.log" "Crash report %crashUpTo%.log"
