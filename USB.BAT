@@ -1,11 +1,11 @@
 set execTime=%time%
 :: USB.BAT, by Addison Djatschenko
 :: Used to be very messy code. Still is however it is now fully commented!
-:: Version 32.4
+:: Version 32.5
 
 @echo off
-set newStuff=Added device serial number to crashReport.
-set version=32.4
+set newStuff=Made ejection open Windows menu
+set version=32.5
 set crashUpTo=0
 call "%~dp0USB_DAT\crashData.bat"
 :: Makes main data folder for USB.BAT
@@ -1556,12 +1556,6 @@ echo USB.BAT exited.
 del "%~dp0/log.log"
 ren "%~dp0/log2.log" "log.log"
 :: Displays ejection message
-(
-@echo off
-echo ^<script^>
-echo alert^('The device, %device%, %~dp0 can now be safely ejected AFTER you have used Windows safe eject. '^);
-echo ^</script^>
-)>"%~dp0USB_DAT\alert.html"
 attrib log.log +h +s
 attrib log2.log +h +s
 set intLogType=system
@@ -1571,7 +1565,7 @@ set intMessage2=and then closing USB.BAT.
 set intMessage3=End of log now.
 call :intLog
 md "%~dp0USB_DAT\intClose"
-"%~dp0USB_DAT\alert.html"
+RunDll32.exe shell32.dll,Control_RunDLL hotplug.dll
 exit
 
 :bf
