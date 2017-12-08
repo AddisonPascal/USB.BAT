@@ -1,11 +1,11 @@
 set execTime=%time%
 :: USB.BAT, by Addison Djatschenko
 :: Used to be very messy code. Still is however it is now fully commented!
-:: Version 32.2
+:: Version 32.3
 
 @echo off
-set newStuff=Fixed time for executing.
-set version=32.2
+set newStuff=Added 'vol' to crashreport
+set version=32.3
 set crashUpTo=0
 call "%~dp0USB_DAT\crashData.bat"
 :: Makes main data folder for USB.BAT
@@ -34,6 +34,9 @@ echo Called: %called%. Action: %~dp0%from%?%action%#%data%
 echo.
 echo SYSTEM INFO:
 systeminfo
+echo. 
+echo. 
+vol
 echo. 
 )>"%~dp0USB_DAT\crashReport.log"
 set intLogType=user
