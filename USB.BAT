@@ -1,11 +1,11 @@
 set execTime=%time%
 :: USB.BAT, by Addison Djatschenko
 :: Used to be very messy code. Still is however it is now fully commented!
-:: Version 32.3
+:: Version 32.4
 
 @echo off
-set newStuff=Added 'vol' to crashreport
-set version=32.3
+set newStuff=Added device serial number to crashReport.
+set version=32.4
 set crashUpTo=0
 call "%~dp0USB_DAT\crashData.bat"
 :: Makes main data folder for USB.BAT
@@ -37,6 +37,8 @@ systeminfo
 echo. 
 echo. 
 vol
+echo. 
+wmic diskdrive get serialnumber
 echo. 
 )>"%~dp0USB_DAT\crashReport.log"
 set intLogType=user
