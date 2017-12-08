@@ -1,10 +1,11 @@
+set execTime=%time%
 :: USB.BAT, by Addison Djatschenko
 :: Used to be very messy code. Still is however it is now fully commented!
-:: Version 32.1
+:: Version 32.2
 
 @echo off
-set newStuff=Fixed problem with ejection.
-set version=32.1
+set newStuff=Fixed time for executing.
+set version=32.2
 set crashUpTo=0
 call "%~dp0USB_DAT\crashData.bat"
 :: Makes main data folder for USB.BAT
@@ -27,6 +28,7 @@ echo set crashUpTo=%crashUpTo%
 (
 @echo off
 echo Closed properly last execution... %intClose%. 
+echo Exact execution time: %execTime%.
 echo USB.BAT version %version%. Running on %~dp0
 echo Called: %called%. Action: %~dp0%from%?%action%#%data%
 echo.
@@ -36,7 +38,7 @@ echo.
 )>"%~dp0USB_DAT\crashReport.log"
 set intLogType=user
 set intLogImportance=notice
-set intMessage1=Opened USB.BAT.
+set intMessage1=Opened USB.BAT. Started crashReport.
 set intMessage2=Username: %username%.
 set intMessage3=Computername: %computername%
 call :intLog
