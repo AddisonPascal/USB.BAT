@@ -1,11 +1,11 @@
 set execTime=%time%
 :: USB.BAT, by Addison Djatschenko
 :: Used to be very messy code. Still is however it is now fully commented!
-:: Version 32.7
+:: Version 32.8
 
 @echo off
-set newStuff=Fixed lastUpdated - before it would crash.
-set version=32.7
+set newStuff=Removed log.log accessability - it was useless. I will need to remove dead code later.
+set version=32.8
 set lastUpdated=19Feb18
 set crashUpTo=0
 call "%~dp0USB_DAT\crashData.bat"
@@ -747,12 +747,8 @@ echo.
 echo Enter any Custom Command to run as well!
 :: System gotos are displayed in Custom Commands / Paths and you can see them all if you snoop through the code.
 echo Or, as 3rd pref, a system goto!
-:: Changes which copy of USB.BAT to run in if it is available in a different drive.
-echo H= Change USB.BAT drive (swap to different USB)
 :: Links to GitHub source
 echo U= Check for updates
-:: Change device name for use in USB.BAT, has nothing to do with actual drive name.
-echo D= Change device name
 :: Handy scripts users can write to do stuff not yet implemented
 echo C= Custom Commands
 :: Disables automatic logging on
@@ -771,12 +767,12 @@ echo 0= Reminders
 echo 1= Open CMD in %~dp0
 :: Safely ejects USB in terms of USB.BAT, if you are currently using another program it is recommended to use the Windows eject after. 
 echo 2= Eject USB
-:: Views log of user's activity (not fully implemented but shows basic actions)
-echo 3= View USB Log
+:: Change device name for use in USB.BAT, has nothing to do with actual drive name.
+echo 3= Change device name
 :: Contacts addisondj@hotmail.com via a mailto link in iexplore
 echo 4= Contact Addison Djatschenko
-:: Uses |clip to copy the log to clipboard
-echo 5= Copy log to clipboard
+:: Changes which copy of USB.BAT to run in if it is available in a different drive.
+echo 5= Change USB.BAT drive (swap to different USB)
 :: Allows the user to see data folder paths
 echo 6= Folders
 :: Allows the user to change their PIN
@@ -823,8 +819,7 @@ set intMessage2=Option is:
 set intMessage3=%uo%
 call :intLog
 :: Goto's to the user pref
-if %uo%==h goto switch
-if %uo%==H goto switch
+if %uo%==5 goto switch
 if %uo%==u goto updates
 if %uo%==U goto updates
 if %uo%==c goto cust
@@ -835,19 +830,16 @@ if %uo%==r goto remd
 if %uo%==R goto remd
 if %uo%==t goto temp
 if %uo%==T goto temp
-if %uo%==d goto device
-if %uo%==D goto device
+if %uo%==3 goto device
 if %uo%==s goto so
 if %uo%==S goto so
 if %uo%==f goto lockedFolder
 if %uo%==F goto lockedFolder
 if %uo%==1 goto bf
 if %uo%==2 goto eject
-if %uo%==3 goto xlog
 if %uo%==4 goto contact
 if %uo%==15 goto exitit
 if %uo%==0 goto notify
-if %uo%==5 goto zlog
 if %uo%==6 goto folds
 if %uo%==7 goto cpin
 if %uo%==8 goto trashmanage
