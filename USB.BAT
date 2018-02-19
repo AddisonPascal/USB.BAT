@@ -1,11 +1,11 @@
 set execTime=%time%
 :: USB.BAT, by Addison Djatschenko
 :: Used to be very messy code. Still is however it is now fully commented!
-:: Version 32.6
+:: Version 32.7
 
 @echo off
-set newStuff=Added lastUpdated to crash report.
-set version=32.6
+set newStuff=Fixed lastUpdated - before it would crash.
+set version=32.7
 set lastUpdated=19Feb18
 set crashUpTo=0
 call "%~dp0USB_DAT\crashData.bat"
@@ -30,7 +30,7 @@ echo set crashUpTo=%crashUpTo%
 @echo off
 echo Closed properly last execution... %intClose%. 
 echo Exact execution time: %execTime%.
-echo USB.BAT version %version% (last updated %lastUpdated%). Running on %~dp0
+echo USB.BAT version %version% - last updated %lastUpdated%. Running on %~dp0
 echo Called: %called%. Action: %~dp0%from%?%action%#%data%
 echo.
 echo SYSTEM INFO:
