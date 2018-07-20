@@ -1,11 +1,11 @@
 set execTime=%time%
 :: USB.BAT, by Addison Djatschenko
 :: Used to be very messy code. Still is however it is now fully commented!
-:: Version 32.8
+:: Version 32.9
 
 @echo off
-set newStuff=Removed log.log accessability - it was useless. I will need to remove dead code later.
-set version=32.8
+set newStuff=Removed _some_ dead code from log.log, fixed security vulnerability after :contact.
+set version=32.9
 set lastUpdated=19Feb18
 set crashUpTo=0
 call "%~dp0USB_DAT\crashData.bat"
@@ -49,14 +49,6 @@ set intMessage2=Username: %username%.
 set intMessage3=Computername: %computername%
 call :intLog
 set hand=0
-:: Hides the log, so it is only accessable from USB.BAT
-attrib log.log -h -s
-set intLogType=system
-set intLogImportance=notice
-set intMessage1=Hidden USB log.
-set intMessage2=log.log.
-set intMessage3=Marked as system file.
-call :intLog
 :: Makes locked folder if it hasn't already
 set hiddenFolderExisted=true
 if not exist hidden (
@@ -479,34 +471,12 @@ set intMessage2=Or at least, mode 1000'd.
 set intMessage3=.
 call :intLog
 echo DOING SYSTEMY STUFF
-if not exist "%~dp0/log.log" goto logm
-:: Logs opening of USB.BAT
-(
-@echo off
-type "%~dp0/log.log"
-echo. 
-echo %username%, on %computername%, on %time%, %date%, USB.BAT v%version%:
-echo Opened USB.BAT
-echo Drive is %~dp0. Called: %called%. Action: %~dp0%from%?%action%#%data%. 
-)>log2.log
-del "%~dp0/log.log"
-ren "%~dp0/log2.log" "log.log"
 
 :ttt
 if not exist "%~dp0/USB_DAT/system.ini.bat" goto ls
 call "%~dp0/USB_DAT/system.ini.bat"
 cls
 goto login
-
-:logm
-(
-@echo off
-echo %username%, on %computername%, on %time%, %date%, USB.BAT v%version%:
-echo Opened USB.BAT
-echo Drive is %~dp0. Called: %called%. Action: %action%#%data%. 
-echo System created "log.log".  Called: %called%. Action: %action%#%data%. 
-)>log.log
-goto ttt
 
 :ls
 cls
@@ -539,16 +509,6 @@ set intMessage1=Encrypted PIN.
 set intMessage2=And saved.
 set intMessage3=.
 call :intLog
-(
-@echo off
-type "%~dp0/log.log"
-echo. 
-echo %username%, on %computername%, on %time%, %date%, USB.BAT v%version%:
-echo User set PIN.  Called: %called%. Action: %action%#%data%. 
-)>log2.log
-del "%~dp0/log.log"
-ren "%~dp0/log2.log" "log.log"
-
 :login
 goto logintt
 
@@ -595,16 +555,6 @@ echo.
 :: Decrypts and tests pin using the same hex multiplier
 set /a keyt=%keyt%*0x10C
 if %keyt%==%key% goto in
-:: Logs if user incorrectly entered PIN
-(
-@echo off
-type "%~dp0/log.log"
-echo. 
-echo %username%, on %computername%, on %time%, %date%, USB.BAT v%version%:
-echo User incorrectly entered PIN. Called: %called%. Action: %action%#%data%. 
-)>log2.log
-del "%~dp0/log.log"
-ren "%~dp0/log2.log" "log.log"
 :: Saves data about the user who incorrectly entered PIN to a warning file. 
 (
 @echo off
@@ -629,18 +579,7 @@ goto logintt
 
 :in
 :: A %secure% variable is needed to ensure that the user has not bypassed login using an action file. Defaults to no, but in :in goes to yes. 
-set secure=yes
-:: Logs login
-(
-@echo off
-type "%~dp0/log.log"
-echo. 
-echo %username%, on %computername%, on %time%, %date%, USB.BAT v%version%:
-echo User correctly entered PIN.  Called: %called%. Action: %action%#%data%. 
-)>log2.log
-del "%~dp0/log.log"
-ren "%~dp0/log2.log" "log.log"
-set intLogType=auth
+set secure=yesset intLogType=auth
 set intLogImportance=notice
 set intMessage1=User has attempted login...
 set intMessage2=PIN is correct!
@@ -1419,18 +1358,7 @@ set intMessage1=Displayed folders and files.
 set intMessage2=.
 set intMessage3=Awaiting user response...
 call :intLog
-pause>nul
-:: Logs action
-(
-@echo off
-type "%~dp0/log.log"
-echo. 
-echo %username%, on %computername%, on %time%, %date%, USB.BAT v%version%:
-echo User looked at folders
-)>log2.log
-del "%~dp0/log.log"
-ren "%~dp0/log2.log" "log.log"
-set intLogType=user
+pause>nulset intLogType=user
 set intLogImportance=info
 set intMessage1=User chose to go to menu.
 set intMessage2=Going to menu...
@@ -1438,45 +1366,6 @@ set intMessage3=.
 call :intLog
 goto ain
 
-:zlog
-set intLogType=system
-set intLogImportance=info
-set intMessage1=Gone to :zlog
-set intMessage2=for copying log to clipboard.
-set intMessage3=Copying log to clipboard...
-call :intLog
-:: Logs action
-(
-@echo off
-type "%~dp0/log.log"
-echo. 
-echo %username%, on %computername%, on %time%, %date%, USB.BAT v%version%:
-echo User copied log to clipboard
-)>log2.log
-del "%~dp0/log.log"
-ren "%~dp0/log2.log" "log.log"
-cls
-:: Copies log to clipboard
-(
-@echo off
-type "%~dp0/log.log"
-)|clip
-set intLogType=system
-set intLogImportance=info
-set intMessage1=Copied log to clipboard.
-set intMessage2=.
-set intMessage3=Awaiting user response...
-call :intLog
-cls
-echo Copied log to clipboard!
-pause
-set intLogType=user
-set intLogImportance=info
-set intMessage1=User chose to go to menu.
-set intMessage2=Going to menu...
-set intMessage3=.
-call :intLog
-goto ain
 
 :contact
 set intLogType=system
@@ -1485,33 +1374,15 @@ set intMessage1=Gone to :contact
 set intMessage2=for sending an email to Addison Djatschenko.
 set intMessage3=Opening email program...
 call :intLog
-:: Logs action
-(
-@echo off
-type "%~dp0/log.log"
-echo. 
-echo %username%, on %computername%, on %time%, %date%, USB.BAT v%version%:
-echo User tried to contact Addison Djatschenko. 
-)>log2.log
-del "%~dp0/log.log"
-ren "%~dp0/log2.log" "log.log"
 :: Opens mailto link in iexplore which will redirect to mail program and have my email address in the To field.
 start iexplore "mailto:addison.djatschenko@outlook.com"
-(
-@echo off
-type "%~dp0/log.log"
-echo. 
-echo %username%, on %computername%, on %time%, %date%, USB.BAT v%version%:
-echo USB.BAT exited. 
-)>log2.log
-del "%~dp0/log.log"
-ren "%~dp0/log2.log" "log.log"
 set intLogType=system
 set intLogImportance=notice
 set intMessage1=Email program opened.
 set intMessage2=USB.BAT will now exit...
 set intMessage3=.
 call :intLog
+attrib hidden +h +s
 md "%~dp0USB_DAT\intClose"
 exit
 
