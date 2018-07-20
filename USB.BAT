@@ -1,10 +1,10 @@
 set execTime=%time%
 :: USB.BAT, by Addison Djatschenko
 :: Used to be very messy code. Still is however it is now fully commented!
-:: Version 32.9
+:: Version 33.0
 
 @echo off
-set newStuff=Removed _some_ dead code from log.log, fixed security vulnerability after :contact.
+set newStuff=Fixed some pretty bad bugs.
 set version=32.9
 set lastUpdated=19Feb18
 set crashUpTo=0
@@ -579,7 +579,8 @@ goto logintt
 
 :in
 :: A %secure% variable is needed to ensure that the user has not bypassed login using an action file. Defaults to no, but in :in goes to yes. 
-set secure=yesset intLogType=auth
+set secure=yes
+set intLogType=auth
 set intLogImportance=notice
 set intMessage1=User has attempted login...
 set intMessage2=PIN is correct!
@@ -1358,7 +1359,8 @@ set intMessage1=Displayed folders and files.
 set intMessage2=.
 set intMessage3=Awaiting user response...
 call :intLog
-pause>nulset intLogType=user
+pause>nul
+set intLogType=user
 set intLogImportance=info
 set intMessage1=User chose to go to menu.
 set intMessage2=Going to menu...
