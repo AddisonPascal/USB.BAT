@@ -1,12 +1,12 @@
 set execTime=%time%
 :: USB.BAT, by Addison Djatschenko
 :: Used to be very messy code. Still is however it is now fully commented!
-:: Version 33.0
+:: Version 33.1
 
 @echo off
-set newStuff=Fixed some pretty bad bugs.
-set version=32.9
-set lastUpdated=19Feb18
+set newStuff=Fixed versioning and last updated variable. 
+set version=33.1
+set lastUpdated=20Jul18
 set crashUpTo=0
 call "%~dp0USB_DAT\crashData.bat"
 :: Makes main data folder for USB.BAT
