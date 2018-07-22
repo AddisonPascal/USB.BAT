@@ -1813,7 +1813,6 @@ echo bm: Bright screen
 echo hca: High contrast A
 echo hcb: High contrast B
 echo folds: Folders
-echo zlog: Copy log to clipboard
 echo contact: Contact Addison Djatschenko
 echo eject: Eject USB
 echo bf: Open CMD in %~dp0
