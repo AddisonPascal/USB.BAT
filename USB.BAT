@@ -54,7 +54,6 @@ set intMessage1=Opened USB.BAT. Started crashReport.
 set intMessage2=Username: %username%.
 set intMessage3=Computername: %computername%
 call :intLog
-set hand=0
 :: Makes locked folder if it hasn't already
 set hiddenFolderExisted=true
 if not exist hidden (
@@ -93,234 +92,19 @@ set intMessage1=Called device.bat savefile.
 set intMessage2=Gotten device name.
 set intMessage3=It is %device%.
 call :intLog
-echo DOING SYSTEMY STUFF
-md "%~dp0/USB_DAT/vs"
-md "%~dp0/USB_DAT/vs/%version%"
-copy "%~dp0/USB.BAT" "%~dp0/USB_DAT/vs/%version%/USB.BAT"
-set intLogImportance=notice
-set intMessage1=Made vs folder.
-set intMessage2=Made vs/%version% folder.
-set intMessage3=Copied to version folder.
-call :intLog
-md D:\USB_DAT
-md E:\USB_DAT
-md F:\USB_DAT
-md G:\USB_DAT
-md H:\USB_DAT
-md I:\USB_DAT
-set intLogImportance=info
-set intMessage1=Ensured USB_DAT folder is in all mounted drives.
-set intMessage2=That is D-I.
-set intMessage3=.
-call :intLog
-:: I know, messy, however some version aspects use %usbbatv% and some %version%. 
-set usbbatv=%version%
 :: Detecting the drives. 
-if "%~dp0"=="E:\" goto exx
-if "%~dp0"=="F:\" goto fxx
-if "%~dp0"=="G:\" goto gxx
-if "%~dp0"=="D:\" goto dxx
-if "%~dp0"=="H:\" goto hxx
-if "%~dp0"=="I:\" goto ixx
-goto caly
-:exx
-:: Updating other drive's copies of USB.BAT
-if not exist "F:\USB_DAT\vs\%version%\USB.BAT" del "F:\USB.BAT"
-if not exist "G:\USB_DAT\vs\%version%\USB.BAT" del "G:\USB.BAT"
-if not exist "D:\USB_DAT\vs\%version%\USB.BAT" del "D:\USB.BAT"
-if not exist "H:\USB_DAT\vs\%version%\USB.BAT" del "H:\USB.BAT"
-:: A bunch of stuff, figuring out where native copy of USB.BAT originated from. 
-call "%~dp0USB_DAT\handfile.bat"
-if not exist "F:\USB_DAT\vs\%version%\USB.BAT" set /a hand=%hand%+1
-(
-echo set hand=%hand%
-)>"F:\USB_DAT\handfile.bat"
-call "%~dp0USB_DAT\handfile.bat"
-if not exist "G:\USB_DAT\vs\%version%\USB.BAT" set /a hand=%hand%+1
-(
-echo set hand=%hand%
-)>"G:\USB_DAT\handfile.bat"
-call "%~dp0USB_DAT\handfile.bat"
-if not exist "H:\USB_DAT\vs\%version%\USB.BAT" set /a hand=%hand%+1
-(
-echo set hand=%hand%
-)>"H:\USB_DAT\handfile.bat"
-call "%~dp0USB_DAT\handfile.bat"
-if not exist "D:\USB_DAT\vs\%version%\USB.BAT" set /a hand=%hand%+1
-(
-echo set hand=%hand%
-)>"D:\USB_DAT\handfile.bat"
-:: Updating other drive's copies of USB.BAT
-if not exist "H:\USB_DAT\vs\%version%\USB.BAT" copy "%~dp0/USB.BAT" "H:\USB.BAT"
-if not exist "D:\USB_DAT\vs\%version%\USB.BAT" copy "%~dp0/USB.BAT" "D:\USB.BAT"
-if not exist "F:\USB_DAT\vs\%version%\USB.BAT" copy "%~dp0/USB.BAT" "F:\USB.BAT"
-if not exist "G:\USB_DAT\vs\%version%\USB.BAT" copy "%~dp0/USB.BAT" "G:\USB.BAT"
-set drive=E
+if "%~dp0"=="E:\" set drive=E
+if "%~dp0"=="F:\" set drive=F
+if "%~dp0"=="G:\" set drive=G
+if "%~dp0"=="D:\" set drive=D
+if "%~dp0"=="H:\" set drive=H
+if "%~dp0"=="I:\" set drive=I
 set intLogType=system
 set intLogImportance=notice
-set intMessage1=Drive is E.
-set intMessage2=If applicable, updated USB.BAT in other mounted drives.
-set intMessage3=That is, D, F, G, and H. 
+set intMessage1=Drive is %drive%.
+set intMessage2=.
+set intMessage3=. 
 call :intLog
-goto caly
-:ixx
-set drive=I
-set intLogType=system
-set intLogImportance=notice
-set intMessage1=Drive is I.
-set intMessage2=Didn't update USB.BAT in any drives.
-set intMessage3=.
-call :intLog
-goto caly
-:fxx
-:: Updating other drive's copies of USB.BAT
-if not exist "E:\USB_DAT\vs\%version%\USB.BAT" del "E:\USB.BAT"
-if not exist "G:\USB_DAT\vs\%version%\USB.BAT" del "G:\USB.BAT"
-if not exist "D:\USB_DAT\vs\%version%\USB.BAT" del "D:\USB.BAT"
-if not exist "H:\USB_DAT\vs\%version%\USB.BAT" del "H:\USB.BAT"
-call "%~dp0USB_DAT\handfile.bat"
-if not exist "E:\USB_DAT\vs\%version%\USB.BAT" set /a hand=%hand%+1
-(
-echo set hand=%hand%
-)>"E:\USB_DAT\handfile.bat"
-call "%~dp0USB_DAT\handfile.bat"
-if not exist "G:\USB_DAT\vs\%version%\USB.BAT" set /a hand=%hand%+1
-(
-echo set hand=%hand%
-)>"G:\USB_DAT\handfile.bat"
-call "%~dp0USB_DAT\handfile.bat"
-if not exist "H:\USB_DAT\vs\%version%\USB.BAT" set /a hand=%hand%+1
-(
-echo set hand=%hand%
-)>"H:\USB_DAT\handfile.bat"
-call "%~dp0USB_DAT\handfile.bat"
-if not exist "D:\USB_DAT\vs\%version%\USB.BAT" set /a hand=%hand%+1
-(
-echo set hand=%hand%
-)>"D:\USB_DAT\handfile.bat"
-if not exist "H:\USB_DAT\vs\%version%\USB.BAT" copy "%~dp0/USB.BAT" "H:\USB.BAT"
-if not exist "E:\USB_DAT\vs\%version%\USB.BAT" copy "%~dp0/USB.BAT" "E:\USB.BAT"
-if not exist "G:\USB_DAT\vs\%version%\USB.BAT" copy "%~dp0/USB.BAT" "D:\USB.BAT"
-if not exist "D:\USB_DAT\vs\%version%\USB.BAT" copy "%~dp0/USB.BAT" "G:\USB.BAT"
-set drive=F
-set intLogType=system
-set intLogImportance=notice
-set intMessage1=Drive is F.
-set intMessage2=If applicable, updated USB.BAT in other mounted drives.
-set intMessage3=That is, D, E, G, and H. 
-call :intLog
-goto caly
-:gxx
-if not exist "E:\USB_DAT\vs\%version%\USB.BAT" del "E:\USB.BAT"
-if not exist "F:\USB_DAT\vs\%version%\USB.BAT" del "F:\USB.BAT"
-if not exist "D:\USB_DAT\vs\%version%\USB.BAT" del "D:\USB.BAT"
-if not exist "H:\USB_DAT\vs\%version%\USB.BAT" del "H:\USB.BAT"
-call "%~dp0USB_DAT\handfile.bat"
-if not exist "F:\USB_DAT\vs\%version%\USB.BAT" set /a hand=%hand%+1
-(
-echo set hand=%hand%
-)>"F:\USB_DAT\handfile.bat"
-call "%~dp0USB_DAT\handfile.bat"
-if not exist "E:\USB_DAT\vs\%version%\USB.BAT" set /a hand=%hand%+1
-(
-echo set hand=%hand%
-)>"E:\USB_DAT\handfile.bat"
-call "%~dp0USB_DAT\handfile.bat"
-if not exist "H:\USB_DAT\vs\%version%\USB.BAT" set /a hand=%hand%+1
-(
-echo set hand=%hand%
-)>"H:\USB_DAT\handfile.bat"
-call "%~dp0USB_DAT\handfile.bat"
-if not exist "D:\USB_DAT\vs\%version%\USB.BAT" set /a hand=%hand%+1
-(
-echo set hand=%hand%
-)>"D:\USB_DAT\handfile.bat"
-if not exist "H:\USB_DAT\vs\%version%\USB.BAT" copy "%~dp0/USB.BAT" "H:\USB.BAT"
-if not exist "E:\USB_DAT\vs\%version%\USB.BAT" copy "%~dp0/USB.BAT" "E:\USB.BAT"
-if not exist "F:\USB_DAT\vs\%version%\USB.BAT" copy "%~dp0/USB.BAT" "F:\USB.BAT"
-if not exist "D:\USB_DAT\vs\%version%\USB.BAT" copy "%~dp0/USB.BAT" "D:\USB.BAT"
-set drive=G
-set intLogType=system
-set intLogImportance=notice
-set intMessage1=Drive is G.
-set intMessage2=If applicable, updated USB.BAT in other mounted drives.
-set intMessage3=That is, D, E, F, and H. 
-call :intLog
-goto caly
-:dxx
-set drive=D
-if not exist "E:\USB_DAT\vs\%version%\USB.BAT" del "E:\USB.BAT"
-if not exist "F:\USB_DAT\vs\%version%\USB.BAT" del "F:\USB.BAT"
-if not exist "G:\USB_DAT\vs\%version%\USB.BAT" del "G:\USB.BAT"
-if not exist "H:\USB_DAT\vs\%version%\USB.BAT" del "H:\USB.BAT"
-call "%~dp0USB_DAT\handfile.bat"
-if not exist "F:\USB_DAT\vs\%version%\USB.BAT" set /a hand=%hand%+1
-(
-echo set hand=%hand%
-)>"F:\USB_DAT\handfile.bat"
-call "%~dp0USB_DAT\handfile.bat"
-if not exist "E:\USB_DAT\vs\%version%\USB.BAT" set /a hand=%hand%+1
-(
-echo set hand=%hand%
-)>"E:\USB_DAT\handfile.bat"
-call "%~dp0USB_DAT\handfile.bat"
-if not exist "H:\USB_DAT\vs\%version%\USB.BAT" set /a hand=%hand%+1
-(
-echo set hand=%hand%
-)>"H:\USB_DAT\handfile.bat"
-call "%~dp0USB_DAT\handfile.bat"
-if not exist "G:\USB_DAT\vs\%version%\USB.BAT" set /a hand=%hand%+1
-(
-echo set hand=%hand%
-)>"G:\USB_DAT\handfile.bat"
-if not exist "H:\USB_DAT\vs\%version%\USB.BAT" copy "%~dp0/USB.BAT" "H:\USB.BAT"
-if not exist "E:\USB_DAT\vs\%version%\USB.BAT" copy "%~dp0/USB.BAT" "E:\USB.BAT"
-if not exist "F:\USB_DAT\vs\%version%\USB.BAT" copy "%~dp0/USB.BAT" "F:\USB.BAT"
-if not exist "G:\USB_DAT\vs\%version%\USB.BAT" copy "%~dp0/USB.BAT" "G:\USB.BAT"
-set intLogType=system
-set intLogImportance=notice
-set intMessage1=Drive is D.
-set intMessage2=If applicable, updated USB.BAT in other mounted drives.
-set intMessage3=That is, E, F, G, and H. 
-call :intLog
-goto caly
-:hxx
-if not exist "D:\USB_DAT\vs\%version%\USB.BAT" del "D:\USB.BAT"
-if not exist "E:\USB_DAT\vs\%version%\USB.BAT" del "E:\USB.BAT"
-if not exist "F:\USB_DAT\vs\%version%\USB.BAT" del "F:\USB.BAT"
-if not exist "G:\USB_DAT\vs\%version%\USB.BAT" del "G:\USB.BAT"
-call "%~dp0USB_DAT\handfile.bat"
-if not exist "F:\USB_DAT\vs\%version%\USB.BAT" set /a hand=%hand%+1
-(
-echo set hand=%hand%
-)>"F:\USB_DAT\handfile.bat"
-call "%~dp0USB_DAT\handfile.bat"
-if not exist "E:\USB_DAT\vs\%version%\USB.BAT" set /a hand=%hand%+1
-(
-echo set hand=%hand%
-)>"E:\USB_DAT\handfile.bat"
-call "%~dp0USB_DAT\handfile.bat"
-if not exist "D:\USB_DAT\vs\%version%\USB.BAT" set /a hand=%hand%+1
-(
-echo set hand=%hand%
-)>"D:\USB_DAT\handfile.bat"
-call "%~dp0USB_DAT\handfile.bat"
-if not exist "G:\USB_DAT\vs\%version%\USB.BAT" set /a hand=%hand%+1
-(
-echo set hand=%hand%
-)>"G:\USB_DAT\handfile.bat"
-if not exist "D:\USB_DAT\vs\%version%\USB.BAT" copy "%~dp0/USB.BAT" "D:\USB.BAT"
-if not exist "E:\USB_DAT\vs\%version%\USB.BAT" copy "%~dp0/USB.BAT" "E:\USB.BAT"
-if not exist "F:\USB_DAT\vs\%version%\USB.BAT" copy "%~dp0/USB.BAT" "F:\USB.BAT"
-if not exist "G:\USB_DAT\vs\%version%\USB.BAT" copy "%~dp0/USB.BAT" "G:\USB.BAT"
-set drive=H
-set intLogType=system
-set intLogImportance=notice
-set intMessage1=Drive is H.
-set intMessage2=If applicable, updated USB.BAT in other mounted drives.
-set intMessage3=That is, D, E, F, and G. 
-call :intLog
-goto caly
 :caly
 if %drive%==no (
 cls
@@ -1355,7 +1139,6 @@ call :intLog
 cls
 :: Displays data folder directories
 echo PCs folder: %~dp0USB_DAT\pcs
-echo VERSIONS folder: %~dp0USB_DAT\vs
 echo USB.BAT folder (drive): %~dp0
 echo Main data folder: %~dp0USB_DAT
 echo Crash report file: %~dp0USB_DAT\crashReport.txt
