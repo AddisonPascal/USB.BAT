@@ -1,13 +1,19 @@
 set execTime=%time%
 :: USB.BAT, by Addison Djatschenko
 :: Used to be very messy code. Still is however it is now fully commented!
-:: Version 33.1
+:: Version 33.2
 
 @echo off
-set newStuff=Fixed versioning and last updated variable. 
-set version=33.1
-set lastUpdated=20Jul18
+set newStuff=Fixed non existent warn file 
+set version=33.2
+set lastUpdated=22Jul18
 set crashUpTo=0
+if not exist "%~dp0USB_DAT\warn.txt" goto warnExists
+(
+@echo off
+echo No warnings to show :-^). 
+)>%~dp0/USB_DAT/warn.txt
+:warnExists
 call "%~dp0USB_DAT\crashData.bat"
 :: Makes main data folder for USB.BAT
 md USB_DAT
