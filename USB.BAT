@@ -1358,11 +1358,9 @@ echo.
 echo Done Managing. The iBin directory is %~dp0iBin. The .Trash directory is %~dp0.Trash. 
 echo 1= Exit
 echo 2= Re-Update
-:: Factory reset USB.BAT
-echo 3= Delete data for USB.BAT (resets USB.BAT including log). 
 :: Allows user to open iBin (third-party software) if it is installed
 if exist "%~dp0iBin.exe" (
-echo 4= Open iBin.exe, a USB dumping system by iBin
+echo 3= Open iBin.exe, a USB dumping system by iBin
 )
 set /p t= "-->"
 set intLogType=user
@@ -1376,9 +1374,8 @@ if %secure%==no goto ac
 goto ain
 )
 if %t%==2 goto starttm
-if %t%==3 goto factoryreset
 if exist "%~dp0iBin.exe" (
-if %t%==4 goto ibin
+if %t%==3 goto ibin
 )
 set intLogType=user
 set intLogImportance=warn
@@ -1419,40 +1416,6 @@ set intMessage2=Going to TrashManage...
 set intMessage3=.
 call :intLog
 goto starttm
-
-:factoryreset
-set intLogType=system
-set intLogImportance=info
-set intMessage1=Gone to :factoryreset, to factory reset USB.BAT!
-set intMessage2=Factory resetting...
-set intMessage3=.
-call :intLog
-cls
-:: Recycles everything apart from USB.BAT since USB.BAT expands from the one program.
-move "%~dp0\log.log" "%~dp0iBin"
-copy "%~dp0/USB_DAT/pcs" "%~dp0/iBin"
-del "%~dp0/USB_DAT/pcs/*"
-move "%~dp0USB_DAT\color.bat" "%~dp0iBin"
-move "%~dp0USB_DAT\system.ini.bat" "%~dp0iBin"
-move "%~dp0USB_DAT\notifs.txt" "%~dp0iBin"
-move "%~dp0USB_DAT\warn.txt" "%~dp0iBin"
-cls
-set intLogType=system
-set intLogImportance=info
-set intMessage1=Factory reset complete!
-set intMessage2=Awaiting user response...
-set intMessage3=.
-call :intLog
-echo Done. Press any key to exit...
-pause>nul
-set intLogType=user
-set intLogImportance=info
-set intMessage1=User chose to exit USB.BAT.
-set intMessage2=USB.BAT will now terminate.
-set intMessage3=Terminating...
-call :intLog
-md "%~dp0USB_DAT\intClose"
-exit
 
 :colorc
 set intLogType=system
@@ -1858,7 +1821,6 @@ echo exitit: Exit program
 echo cpin: Change PIN
 echo trashmanage: TrashManager
 echo ibin: iBin
-echo factoryreset: Reset USB.BAT
 echo colorc: Change colour
 echo cl: Clear warnings
 echo temp: Temperature
