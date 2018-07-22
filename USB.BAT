@@ -1234,58 +1234,6 @@ call :intLog
 md "%~dp0USB_DAT\intClose"
 exit
 
-:xlog
-set intLogType=system
-set intLogImportance=info
-set intMessage1=Gone to :xlog,
-set intMessage2=for viewing logfile.
-set intMessage3=Displaying incomplete log...
-call :intLog
-:: Logs action
-(
-@echo off
-type "%~dp0/log.log"
-echo. 
-echo %username%, on %computername%, on %time%, %date%, USB.BAT v%version%:
-echo User viewed log. 
-echo. 
-echo %username%, on %computername%, on %time%, %date%, USB.BAT v%version%:
-echo USB.BAT auto-closed. 
-)>log2.log
-del "%~dp0/log.log"
-ren "%~dp0/log2.log" "log.log"
-cls
-:: Views potentially semi-incomplete log.
-type "%~dp0/log.log"
-set intLogType=system
-set intLogImportance=info
-set intMessage1=Displayed potentially incomplete logfile.
-set intMessage2=Awaiting user response...
-set intMessage3=.
-call :intLog
-echo. 
-echo. 
-echo. 
-echo That was the log, which may of been incomplete. 
-echo Press any key to view the complete log. 
-pause>nul
-set intLogType=user
-set intLogImportance=info
-set intMessage1=User chose to view complete log.
-set intMessage2=Opening complete log in .log file viewer...
-set intMessage3=.
-call :intLog
-:: Views full log in default .log file editor
-"%~dp0/log.log"
-set intLogType=system
-set intLogImportance=info
-set intMessage1=Logfile viewer closed.
-set intMessage2=USB.BAT will now terminate.
-set intMessage3=Terminating...
-call :intLog
-md "%~dp0USB_DAT\intClose"
-exit
-
 :cpin
 set intLogType=auth
 set intLogImportance=info
@@ -1925,7 +1873,6 @@ echo contact: Contact Addison Djatschenko
 echo eject: Eject USB
 echo bf: Open CMD in %~dp0
 echo exitit: Exit program
-echo xlog: View log
 echo cpin: Change PIN
 echo trashmanage: TrashManager
 echo ibin: iBin
