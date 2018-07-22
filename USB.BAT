@@ -1271,14 +1271,6 @@ set intMessage1=Saved PIN.
 set intMessage2=.
 set intMessage3=Awaiting user response...
 call :intLog
-:: Logs action
-(
-@echo off
-type "%~dp0/log.log"
-echo. 
-echo %username%, on %computername%, on %time%, %date%, USB.BAT v%version%:
-echo User changed PIN. 
-)>log2.log
 cls
 echo Changed PIN. 
 pause>nul
@@ -1311,16 +1303,6 @@ set intMessage1=Changed title
 set intMessage2=for TrashManage.
 set intMessage3=.
 call :intLog
-:: Logs action
-(
-@echo off
-type "%~dp0/log.log"
-echo. 
-echo %username%, on %computername%, on %time%, %date%, USB.BAT v%version%:
-echo User opened TrashManager
-)>log2.log
-del "%~dp0/log.log"
-ren "%~dp0/log2.log" "log.log"
 goto starttm
 
 :starttm
