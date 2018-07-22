@@ -2326,6 +2326,28 @@ call :intLog
 goto ain
 
 :intLog
+if exist USB_DAT goto usbDataExists
+md USB_DAT
+(
+@echo off
+echo Closed properly last execution... %intClose%. 
+echo Exact execution time: %execTime%.
+echo USB.BAT version %version% - last updated %lastUpdated%. Running on %~dp0
+echo Called: %called%. Action: %~dp0%from%?%action%#%data%
+echo.
+echo SYSTEM INFO:
+systeminfo
+echo. 
+echo. 
+vol
+echo. 
+wmic diskdrive get serialnumber
+echo. 
+echo WARNING!
+echo USB_DAT FOLDER WAS DELETED WHILST PROGRAM WAS RUNNING!
+echo HERE IS ONLY WHAT FOLLOWED THAT:
+)>"%~dp0USB_DAT\crashReport.log"
+:usbDataExists
 (
 @echo off
 type "%~dp0USB_DAT\crashReport.log"
