@@ -8,7 +8,7 @@ set newStuff=Fixed non existent warn file
 set version=33.2
 set lastUpdated=22Jul18
 set crashUpTo=0
-if not exist "%~dp0USB_DAT\warn.txt" goto warnExists
+if exist "%~dp0USB_DAT\warn.txt" goto warnExists
 (
 @echo off
 echo No warnings to show :-^). 
