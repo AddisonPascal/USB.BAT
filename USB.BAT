@@ -1187,32 +1187,11 @@ call :intLog
 md hidden
 :: Locks folders
 attrib hidden +h +s
-:: Logs action
-(
-@echo off
-type "%~dp0/log.log"
-echo. 
-echo %username%, on %computername%, on %time%, %date%, USB.BAT v%version%:
-echo User started ejecting %~dp0. 
-)>log2.log
-del "%~dp0/log.log"
-ren "%~dp0/log2.log" "log.log"
 :: Deletes temporary files
 del %~dp0USB_DAT\drive.bat
 cls
 echo. 
-(
-@echo off
-type "%~dp0/log.log"
-echo. 
-echo %username%, on %computername%, on %time%, %date%, USB.BAT v%version%:
-echo USB.BAT exited. 
-)>log2.log
-del "%~dp0/log.log"
-ren "%~dp0/log2.log" "log.log"
 :: Displays ejection message
-attrib log.log +h +s
-attrib log2.log +h +s
 set intLogType=system
 set intLogImportance=info
 set intMessage1=Displaying message
@@ -1230,27 +1209,8 @@ set intMessage1=Gone to :bf
 set intMessage2=for opening CMD in current drive.
 set intMessage3=Opening CMD...
 call :intLog
-:: Logs action
-(
-@echo off
-type "%~dp0/log.log"
-echo. 
-echo %username%, on %computername%, on %time%, %date%, USB.BAT v%version%:
-echo User opened CMD in %~dp0. 
-)>log2.log
-del "%~dp0/log.log"
-ren "%~dp0/log2.log" "log.log"
 :: Opens CMD window
 start "%~dp0"
-(
-@echo off
-type "%~dp0/log.log"
-echo. 
-echo %username%, on %computername%, on %time%, %date%, USB.BAT v%version%:
-echo USB.BAT exited. 
-)>log2.log
-del "%~dp0/log.log"
-ren "%~dp0/log2.log" "log.log"
 set intLogType=system
 set intLogImportance=info
 set intMessage1=CMD window closed...
@@ -1264,18 +1224,6 @@ exit
 md hidden
 :: Locks folder
 attrib hidden +h +s
-:: Logs action
-(
-@echo off
-type "%~dp0/log.log"
-echo. 
-echo %username%, on %computername%, on %time%, %date%, USB.BAT v%version%:
-echo User exited USB.BAT. 
-)>log2.log
-del "%~dp0/log.log"
-ren "%~dp0/log2.log" "log.log"
-attrib log.log +h +s
-attrib log2.log +h +s
 :: Exits
 set intLogType=system
 set intLogImportance=info
