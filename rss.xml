@@ -10,9 +10,9 @@
  
  <item>
   <title>RSS Feed</title>
-  <description>The link for the RSS feed is <a href="https://raw.githubusercontent.com/AddisonPascal/USB.BAT/master/rss.xml">https://raw.githubusercontent.com/AddisonPascal/USB.BAT/master/rss.xml</a></description>
-  <link></link>
-  <pubDate>Tue, 07 Aug 2018 05:28:00 +1000</pubDate>
+  <description>The link for the RSS feed is https://raw.githubusercontent.com/AddisonPascal/USB.BAT/master/rss.xml</description>
+  <link>https://raw.githubusercontent.com/AddisonPascal/USB.BAT/master/rss.xml</link>
+  <pubDate>Tue, 07 Aug 2018 05:35:00 +1000</pubDate>
  </item>
 
  <item>
