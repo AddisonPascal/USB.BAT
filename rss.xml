@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0">
+<channel>
+ <title>USB.BAT updates</title>
+ <description>RSS feed for USB.BAT!</description>
+ <link>https://github.com/AddisonPascal/USB.BAT</link>
+ <lastBuildDate>Tue, 07 Aug 2018 05:28:00 +1000 </lastBuildDate>
+ <pubDate>Tue, 07 Aug 2018 05:28:00 +1000</pubDate>
+ <ttl>1800</ttl>
+
+ <item>
+  <title>New RSS feed!</title>
+  <description>Made an RSS feed!</description>
+  <link></link>
+  <pubDate>Tue, 07 Aug 2018 05:28:00 +1000</pubDate>
+ </item>
+
+</channel>
+</rss>
