@@ -1,12 +1,12 @@
 set execTime=%time%
 :: USB.BAT, by Addison Djatschenko
 :: Used to be very messy code. Still is however it is now fully commented!
-:: Version 33.3
+:: Version 33.4
 
 @echo off
-set newStuff=Working on improved Crash Reports.
-set version=33.3
-set lastUpdated=22Jul18
+set newStuff=Simplified crash reporting!
+set version=33.4
+set lastUpdated=08Jan19
 set crashUpTo=0
 if exist "%~dp0USB_DAT\warn.txt" goto warnExists
 (
@@ -1647,8 +1647,7 @@ echo HERE IS ONLY WHAT FOLLOWED THAT:
 @echo off
 type "%~dp0USB_DAT\crashReport.log"
 echo. 
-echo !Crash Reporting WIP!
-echo %time%, %date%...  %intLogType%	%intLogImportance%	~ %intMessage% or %intMessage1% %intMessage2% %intMessage3%
+echo %time%, %date%...  %intLogType%	%intLogImportance%	~ %intMessage%
 echo. 
 )>"%~dp0USB_DAT\intLog.tmp"
 del "%~dp0USB_DAT\crashReport.log"
