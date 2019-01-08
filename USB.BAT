@@ -908,9 +908,7 @@ goto ain
 :hcb
 set intLogType=system
 set intLogImportance=info
-set intMessage1=Gone to :hcb
-set intMessage2=for setting colours to High Contrast Mode 2.
-set intMessage3=Figuring out colour codes for high contrast...
+set intMessage=Gone to :hcb for setting colours to High Contrast Mode 2. Figuring out colour codes for high contrast...
 call :intLog
 cls
 :: High Contrast function 2
@@ -932,9 +930,7 @@ if %txc%==f set txc=7
 color %bkc%%txc%
 set intLogType=system
 set intLogImportance=debug
-set intMessage1=High contrasting screen...
-set intMessage2=Set colours.
-set intMessage3=Saving colours...
+set intMessage=High contrasting screen... Set colours. Saving colours...
 :: Saves new contrast scheme
 (
 @echo off
@@ -943,17 +939,13 @@ echo set txc=%txc%
 )>"%~dp0/USB_DAT/color.bat"
 set intLogType=system
 set intLogImportance=debug
-set intMessage1=High contrasted screen.
-set intMessage2=Saved colours.
-set intMessage3=Waiting for user response...
+set intMessage=High contrasted screen. Saved colours. Waiting for user response...
 call :intLog
 echo Done!
 pause>nul
 set intLogType=user
 set intLogImportance=info
-set intMessage1=User chose to go to menu.
-set intMessage2=Going to menu...
-set intMessage3=.
+set intMessage=User chose to go to menu. Going to menu...
 call :intLog
 goto ain
 
