@@ -1407,18 +1407,14 @@ set /p remd= "-->"
 if %remd%==1 goto remddef
 set intLogType=system;auth
 set intLogImportance=info
-set intMessage1=User decided not to enable automatic signin.
-set intMessage2=Redirecting to menu...
-set intMessage3=.
+set intMessage=User decided not to enable automatic signin. Redirecting to menu...
 call :intLog
 goto ain
 
 :remddef
 set intLogType=auth
 set intLogImportance=info
-set intMessage1=User decided to enable automatic signin.
-set intMessage2=Enabling...
-set intMessage3=.
+set intMessage=User decided to enable automatic signin. Enabling...
 call :intLog
 :: Enables automatic signin for today
 cls
@@ -1428,9 +1424,7 @@ echo set userconfirm=%username%
 )>"%~dp0USB_DAT\today.bat"
 set intLogType=auth
 set intLogImportance=info
-set intMessage1=Enabled automatic signin.
-set intMessage2=It will expire the day after %date%.
-set intMessage3=Awaiting user response...
+set intMessage=Enabled automatic signin. It will expire the day after %date%. Awaiting user response...
 call :intLog
 goto cool
 
@@ -1441,26 +1435,20 @@ echo It will expire tomorrow.
 pause
 set intLogType=user
 set intLogImportance=info
-set intMessage1=User decided to go to menu.
-set intMessage2=Going to menu...
-set intMessage3=.
+set intMessage=User decided to go to menu. Going to menu...
 call :intLog
 goto ain
 
 :ahh
 set intLogType=system
 set intLogImportance=info
-set intMessage1=Gone to :ahh,
-set intMessage2=to disable automatic login.
-set intMessage3=Disabling...
+set intMessage=Gone to :ahh, to disable automatic login. Disabling...
 call :intLog
 :: Disables automatic login
 del "%~dp0USB_DAT\today.bat"
 set intLogType=system
 set intLogImportance=info
-set intMessage1=Disabled automatic login.
-set intMessage2=Awaiting user response...
-set intMessage3=.
+set intMessage=Disabled automatic login. Awaiting user response...
 call :intLog
 cls
 echo Done!
