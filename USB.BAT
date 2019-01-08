@@ -1455,18 +1455,14 @@ echo Done!
 pause
 set intLogType=user
 set intLogImportance=info
-set intMessage1=User decided to go to menu.
-set intMessage2=Going to menu...
-set intMessage3=.
+set intMessage=User decided to go to menu. Going to menu...
 call :intLog
 goto ain
 
 :cust
 set intLogType=system
 set intLogImportance=info
-set intMessage1=Gone to :cust,
-set intMessage2=to manage custom commands.
-set intMessage3=Displaying menu and awaiting user response...
+set intMessage=Gone to :cust, to manage custom commands. Displaying menu and awaiting user response...
 call :intLog
 :: Makes custom command directory in data directory in case of it not already being there.
 md "%~dp0USB_DAT\cmds"
@@ -1481,26 +1477,20 @@ echo 4= Exit
 set /p cust= "-->"
 set intLogType=user
 set intLogImportance=info
-set intMessage1=User entered option for :cust.
-set intMessage2=It is:
-set intMessage3=%cust%
+set intMessage=User entered option for :cust. It is: %cust%
 call :intLog
 if %cust%==1 goto newcust
 if %cust%==2 goto runcust
 if %cust%==3 goto paths
 set intLogType=user
 set intLogImportance=warn
-set intMessage1=User entered invalid option!
-set intMessage2=Redirecting to menu...
-set intMessage3=.
+set intMessage=User entered invalid option! Redirecting to menu...
 goto ain
 
 :paths
 set intLogType=system
 set intLogImportance=info
-set intMessage1=Gone to :paths,
-set intMessage2=to view system gotos.
-set intMessage3=Displaying paths and awaiting user response...
+set intMessage=Gone to :paths, to view system gotos. Displaying paths and awaiting user response...
 call :intLog
 cls
 :: Displays system gotos (paths)
