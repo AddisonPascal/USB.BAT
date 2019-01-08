@@ -583,53 +583,41 @@ echo.
 pause>nul
 set intLogType=user
 set intLogImportance=info
-set intMessage1=User chose to go to menu.
-set intMessage2=Going to menu...
-set intMessage3=.
+set intMessage=User chose to go to menu. Going to menu...
 call :intLog
 goto ain
 
 :so
 set intLogType=system
 set intLogImportance=info
-set intMessage1=Gone to :so, to sign out.
-set intMessage2=Signing out...
-set intMessage3=.
+set intMessage=Gone to :so, to sign out. Signing out...
 call :intLog
 md hidden
 :: Locks the locked folder that was unlocked upon signin
 attrib hidden +h +s
 set intLogType=system
 set intLogImportance=info
-set intMessage1=Hidden hidden folder
-set intMessage2=Signing out...
-set intMessage3=.
+set intMessage=Hidden hidden folder. Signing out...
 call :intLog
 :: Sets secure var to no
 set secure=no
 set intLogType=auth
-set intLogImportance=info
-set intMessage1=Set secure to no.
-set intMessage2=Signing out...
-set intMessage3=.
+set intLogImportance=info.
+set intMessage=Set secure to no. Signing out...
 call :intLog
 cls
 :: Clears previously entered var for PIN
 set keyt=%random%%random%
 set intLogType=auth
 set intLogImportance=info
-set intMessage1=Re-encrypted PIN.
-set intMessage2=Signed out.
-set intMessage3=Going to login...
+set intMessage=Re-encrypted PIN. Signed out. Going to login...
 call :intLog
 goto login
 
 :notify
 set intLogType=system
 set intLogImportance=info
-set intMessage1=Gone to :notify, for user set notifications.
-set intMessage2=Displaying notifications...
-set intMessage3=.
+set intMessage=Gone to :notify, for user set notifications. Displaying notifications...
 call :intLog
 cls
 echo Reminder:
@@ -645,43 +633,33 @@ echo 2= Clear
 echo 3= Change
 set intLogType=system
 set intLogImportance=debug
-set intMessage1=Displayed reminder screen.
-set intMessage2=Awaiting user response...
-set intMessage3=.
+set intMessage=Displayed reminder screen. Awaiting user response...
 call :intLog
 set /p uou= "-->"
 set intLogType=user
 set intLogImportance=info
-set intMessage1=User has entered option for reminder screen.
-set intMessage2=Option was:
-set intMessage3=%uou%
+set intMessage=User has entered option for reminder screen. Option was: %uou%
 call :intLog
 if %uou%==1 goto ignoren
 if %uou%==2 goto clearn
 if %uou%==3 goto changen
 set intLogType=user
 set intLogImportance=warn
-set intMessage1=User entered invalid option
-set intMessage2=for notification screen!
-set intMessage3=Refreshing...
+set intMessage=User entered invalid option for notification screen! Refreshing...
 call :intLog
 goto notify
 
 :changen
 set intLogType=system
 set intLogImportance=info
-set intMessage1=Gone to :changen
-set intMessage2=for changing notifications.
-set intMessage3=Awaiting user response...
+set intMessage=Gone to :changen for changing notifications. Awaiting user response...
 call :intLog
 cls
 echo What do you want to notify yourself?
 set /p tng= ""
 set intLogType=user
 set intLogImportance=info
-set intMessage1=User entered option for :changen,
-set intMessage2=changing notifications. Option was:
-set intMessage3=%tng%
+set intMessage=User entered option for :changen, changing notifications. Option was: %tng%
 call :intLog
 cls
 :: Saves to reminder file
@@ -691,53 +669,41 @@ echo %tng%
 )>"%~dp0USB_DAT\notifs.txt"
 set intLogType=system
 set intLogImportance=debug
-set intMessage1=Saved custom user reminder.
-set intMessage2=.
-set intMessage3=Awaiting user response...
+set intMessage=Saved custom user reminder. Awaiting user response...
 call :intLog
 cls
 echo Changed
 pause
 set intLogType=user
 set intLogImportance=info
-set intMessage1=User chose to go to menu.
-set intMessage2=Going to menu...
-set intMessage3=.
+set intMessage=User chose to go to menu. Going to menu...
 call :intLog
 goto ain
 
 :clearn
 set intLogType=system
 set intLogImportance=info
-set intMessage1=Gone to :clearn
-set intMessage2=for clearing notifications.
-set intMessage3=Clearing notifications...
+set intMessage=Gone to :clearn for clearing notifications. Clearing notifications...
 call :intLog
 :: Deletes notification file.
 del "%~dp0USB_DAT\notifs.txt"
 set intLogType=system
 set intLogImportance=debug
-set intMessage1=Cleared notifications.
-set intMessage2=.
-set intMessage3=Awaiting user response...
+set intMessage=Cleared notifications. Awaiting user response...
 call :intLog
 cls
 echo Cleared
 pause
 set intLogType=user
 set intLogImportance=info
-set intMessage1=User chose to go to menu.
-set intMessage2=Going to menu...
-set intMessage3=.
+set intMessage=User chose to go to menu. Going to menu...
 call :intLog
 goto ain
 
 :ignoren
 set intLogType=system
 set intLogImportance=info
-set intMessage1=Gone to :ignoren
-set intMessage2=for ignoring notifications.
-set intMessage3=Awaiting user response...
+set intMessage=Gone to :ignoren for ignoring notifications. Awaiting user response...
 call :intLog
 :: Does nothing, simply goes back to menu
 cls
@@ -745,9 +711,7 @@ echo Ignored
 pause
 set intLogType=user
 set intLogImportance=info
-set intMessage1=User chose to go to menu.
-set intMessage2=Going to menu...
-set intMessage3=.
+set intMessage=User chose to go to menu. Going to menu...
 call :intLog
 goto ain
 
@@ -756,9 +720,7 @@ goto sandiskAccess
 :sandiskAccess
 set intLogType=system
 set intLogImportance=info
-set intMessage1=Gone to :sandiskAccess
-set intMessage2=for opening sandisk.
-set intMessage3=Opening...
+set intMessage=Gone to :sandiskAccess for opening sandisk. Opening...
 call :intLog
 cls
 echo SanDisk Secure Access has been opened and is running. 
@@ -771,26 +733,20 @@ cls
 :: Goes here if SanDisk Secure Access was exited or failed to execute (ie was already open)
 set intLogType=system
 set intLogImportance=warn
-set intMessage1=SanDisk Secure Access was exited or failed to execute.
-set intMessage2=Awaiting user response...
-set intMessage3=.
+set intMessage=SanDisk Secure Access was exited or failed to execute. Awaiting user response...
 call :intLog
 echo SanDisk Secure Access was exited or was already opened. 
 pause>nul
 set intLogType=user
 set intLogImportance=info
-set intMessage1=User chose to go to menu.
-set intMessage2=Going to menu...
-set intMessage3=.
+set intMessage=User chose to go to menu. Going to menu...
 call :intLog
 goto ain
 
 :enc
 set intLogType=system
 set intLogImportance=info
-set intMessage1=Gone to :enc
-set intMessage2=for opening EncryptStick.
-set intMessage3=Opening...
+set intMessage=Gone to :enc for opening EncryptStick. Opening..
 call :intLog
 cls
 :: Executes EncryptStick (third-party software)
