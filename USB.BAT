@@ -1113,9 +1113,7 @@ if exist "%~dp0iBin.exe" (
 echo To dump a file into iBin, simply check that iBin.exe is running, and select the file and do START + delete. 
 set intLogType=system
 set intLogImportance=info
-set intMessage1=iBin is installed on this USB.
-set intMessage2=Displayed instructions for recycling.
-set intMessage3=Synchronising recycle bins...
+set intMessage=iBin is installed on this USB. Displayed instructions for recycling. Synchronising recycle bins...
 call :intLog
 )
 echo. 
@@ -1124,17 +1122,13 @@ echo Copying iBin/* to .Trash/*
 copy "%~dp0/iBin" "%~dp0/.Trash"
 set intLogType=system
 set intLogImportance=info
-set intMessage1=Synchronised iBin to .Trash.
-set intMessage2=.
-set intMessage3=Synchronising .Trash to iBin...
+set intMessage=Synchronised iBin to .Trash. Synchronising .Trash to iBin...
 call :intLog
 echo Copying .Trash/* to iBin/*
 copy "%~dp0/.Trash" "%~dp0/iBin"
 set intLogType=system
 set intLogImportance=info
-set intMessage1=Synchronised all trash folders.
-set intMessage2=.
-set intMessage3=Awaiting user response...
+set intMessage=Synchronised all trash folders. Awaiting user response...
 call :intLog
 echo. 
 echo Done Managing. The iBin directory is %~dp0iBin. The .Trash directory is %~dp0.Trash. 
@@ -1147,9 +1141,7 @@ echo 3= Open iBin.exe, a USB dumping system by iBin
 set /p t= "-->"
 set intLogType=user
 set intLogImportance=info
-set intMessage1=User has entered option for :starttm.
-set intMessage2=Option is:
-set intMessage3=%t%
+set intMessage=User has entered option for :starttm. Option is: %t%
 call :intLog
 if %t%==1 (
 if %secure%==no goto ac
@@ -1161,18 +1153,14 @@ if %t%==3 goto ibin
 )
 set intLogType=user
 set intLogImportance=warn
-set intMessage1=User has entered an invalid option for :starttm!
-set intMessage2=.
-set intMessage3=Refreshing...
+set intMessage=User has entered an invalid option for :starttm! Refreshing...
 call :intLog
 goto starttm
 
 :ibin
 set intLogType=system
 set intLogImportance=info
-set intMessage1=Gone to :ibin
-set intMessage2=for opening iBin.
-set intMessage3=Opening iBin...
+set intMessage=Gone to :ibin for opening iBin. Opening iBin...
 call :intLog
 cls
 echo iBin was opened and is running. 
@@ -1185,26 +1173,20 @@ cls
 :: This is displayed if iBin was exited or failed to execute (ie if it was already running)
 set intLogType=system
 set intLogImportance=warn
-set intMessage1=iBin was exited or failed to execute.
-set intMessage2=Awaiting user response...
-set intMessage3=.
+set intMessage=iBin was exited or failed to execute. Awaiting user response...
 call :intLog
 echo iBin was exited or was already running. 
 pause>nul
 set intLogType=user
 set intLogImportance=info
-set intMessage1=User chose to go to TrashManage.
-set intMessage2=Going to TrashManage...
-set intMessage3=.
+set intMessage=User chose to go to TrashManage. Going to TrashManage...
 call :intLog
 goto starttm
 
 :colorc
 set intLogType=system
 set intLogImportance=info
-set intMessage1=Gone to :colorc, to change custom colours.
-set intMessage2=Displaying colours and awaiting user response...
-set intMessage3=.
+set intMessage=Gone to :colorc, to change custom colours. Displaying colours and awaiting user response...
 call :intLog
 cls
 :: Displays current colour scheme code.
