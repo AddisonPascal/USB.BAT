@@ -1440,13 +1440,13 @@ call :intLog
 goto ain
 
 :ahh
-set intLogType=system
+set intLogType=auth
 set intLogImportance=info
 set intMessage=Gone to :ahh, to disable automatic login. Disabling...
 call :intLog
 :: Disables automatic login
 del "%~dp0USB_DAT\today.bat"
-set intLogType=system
+set intLogType=auth
 set intLogImportance=info
 set intMessage=Disabled automatic login. Awaiting user response...
 call :intLog
