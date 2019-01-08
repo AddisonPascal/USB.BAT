@@ -952,9 +952,7 @@ goto ain
 :folds
 set intLogType=system
 set intLogImportance=info
-set intMessage1=Gone to :folds
-set intMessage2=for viewing data folders' and files' directories.
-set intMessage3=Displaying folders...
+set intMessage=Gone to :folds for viewing data folders' and files' directories. Displaying folders...
 call :intLog
 cls
 :: Displays data folder directories
@@ -964,16 +962,12 @@ echo Main data folder: %~dp0USB_DAT
 echo Crash report file: %~dp0USB_DAT\crashReport.txt
 set intLogType=system
 set intLogImportance=debug
-set intMessage1=Displayed folders and files.
-set intMessage2=.
-set intMessage3=Awaiting user response...
+set intMessage=Displayed folders and files. Awaiting user response...
 call :intLog
 pause>nul
 set intLogType=user
 set intLogImportance=info
-set intMessage1=User chose to go to menu.
-set intMessage2=Going to menu...
-set intMessage3=.
+set intMessage=User chose to go to menu. Going to menu...
 call :intLog
 goto ain
 
@@ -981,17 +975,13 @@ goto ain
 :contact
 set intLogType=system
 set intLogImportance=info
-set intMessage1=Gone to :contact
-set intMessage2=for sending an email to Addison Djatschenko.
-set intMessage3=Opening email program...
+set intMessage=Gone to :contact for sending an email to Addison Djatschenko. Opening email program...
 call :intLog
 :: Opens mailto link in iexplore which will redirect to mail program and have my email address in the To field.
 start iexplore "mailto:addison.djatschenko@outlook.com"
 set intLogType=system
 set intLogImportance=notice
-set intMessage1=Email program opened.
-set intMessage2=USB.BAT will now exit...
-set intMessage3=.
+set intMessage=Email program opened. USB.BAT will now exit...
 call :intLog
 attrib hidden +h +s
 md "%~dp0USB_DAT\intClose"
@@ -1000,9 +990,7 @@ exit
 :eject
 set intLogType=system
 set intLogImportance=info
-set intMessage1=Gone to :eject
-set intMessage2=for ejecting the USB.
-set intMessage3=Displaying notification...
+set intMessage=Gone to :eject for ejecting the USB. Displaying notification...
 call :intLog
 md hidden
 :: Locks folders
