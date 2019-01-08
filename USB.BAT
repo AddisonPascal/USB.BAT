@@ -1206,15 +1206,11 @@ echo 8= Gray
 set /p bkc= "-->"
 set intLogType=user
 set intLogImportance=info
-set intMessage1=User has set colour code for background.
-set intMessage2=It is:
-set intMessage3=%bkc%
+set intMessage=User has set colour code for background. It is: %bkc%
 call :intLog
 set intLogType=system
 set intLogImportance=info
-set intMessage1=.
-set intMessage2=Displaying colours and awaiting user response...
-set intMessage3=.
+set intMessage=Displaying colours and awaiting user response...
 call :intLog
 echo. 
 :: Displays colour codes for text.
@@ -1232,25 +1228,19 @@ echo 8= Gray
 set /p txc= "-->"
 set intLogType=user
 set intLogImportance=info
-set intMessage1=User has set colour code for text.
-set intMessage2=It is: %txc%
-set intMessage3=Awaiting user response...
+set intMessage=User has set colour code for text. It is: %txc%. Awaiting user response...
 call :intLog
 echo Press any key to exit...
 pause>nul
 set intLogType=user
 set intLogImportance=info
-set intMessage1=User chose to exit USB.BAT.
-set intMessage2=.
-set intMessage3=Saving colour file...
+set intMessage=User chose to exit USB.BAT. Saving colour file...
 call :intLog
 :: Saves colour scheme settings
 if "%bkc%"=="%txc%" (
 set intLogType=system
 set intLogImportance=error
-set intMessage1=Colours are the same!!
-set intMessage2=.
-set intMessage3=Colours will not work!
+set intMessage=Colours are the same!! Colours will not work!
 call :intLog
 )
 (
@@ -1260,9 +1250,7 @@ echo set txc=%txc%
 )>"%~dp0/USB_DAT/color.bat"
 set intLogType=system
 set intLogImportance=info
-set intMessage1=Saved colour file.
-set intMessage2=.
-set intMessage3=Terminating...
+set intMessage=Saved colour file. Terminating...
 call :intLog
 :: Exits
 md "%~dp0USB_DAT\intClose"
@@ -1271,9 +1259,7 @@ exit
 :tc
 set intLogType=system
 set intLogImportance=info
-set intMessage1=Gone to :tc,
-set intMessage2=to toggle colours.
-set intMessage3=Toggling, setting, and saving...
+set intMessage=Gone to :tc, to toggle colours. Toggling, setting, and saving...
 call :intLog
 cls
 color %txc%%bkc%
@@ -1286,16 +1272,12 @@ cls
 echo Done! Press any key to exit...
 set intLogType=system
 set intLogImportance=info
-set intMessage1=Toggled colours.
-set intMessage2=Set colours. Saved colours.
-set intMessage3=Awaiting user response...
+set intMessage=Toggled colours. Set colours. Saved colours. Awaiting user response...
 call :intLog
 pause>nul
 set intLogType=user
 set intLogImportance=info
-set intMessage1=User chose to exit USB.BAT
-set intMessage2=USB.BAT will now terminate.
-set intMessage3=Terminating...
+set intMessage=User chose to exit USB.BAT. USB.BAT will now terminate. Terminating...
 call :intLog
 md "%~dp0USB_DAT\intClose"
 exit
@@ -1307,18 +1289,14 @@ call "%~dp0USB_DAT\drive.bat"
 if "%dl%" NEQ "%~dp0/" goto fd
 set intLogType=system
 set intLogImportance=debug
-set intMessage1=There is not a problem with this drive.
-set intMessage2=.
-set intMessage3=.
+set intMessage=There is not a problem with this drive.
 call :intLog
 goto d
 
 :fd
 set intLogType=system
 set intLogImportance=alert
-set intMessage1=There is potentially a problem with this drive.
-set intMessage2=Displaying message...
-set intMessage3=Awaiting user response...
+set intMessage=There is potentially a problem with this drive. Displaying message... Awaiting user response...
 call :intLog
 cls
 echo This drive, %~dp0, may have a problem. 
@@ -1327,9 +1305,7 @@ echo 2= Remind me later
 set /p rrl= "-->"
 set intLogType=user
 set intLogImportance=info
-set intMessage1=User has entered option for :fd.
-set intMessage2=It is:
-set intMessage3=%rrl%
+set intMessage=User has entered option for :fd. It is: %rrl%
 call :intLog
 if %rrl%==1 goto fixd
 if %rrl%==2 goto rl
@@ -1337,9 +1313,7 @@ if %rrl%==2 goto rl
 :fixd
 set intLogType=system
 set intLogImportance=info
-set intMessage1=Fixing drive...
-set intMessage2=Timing out...
-set intMessage3=.
+set intMessage=Fixing drive... Timing out...
 call :intLog
 cls
 :: Fixes config
@@ -1350,18 +1324,14 @@ echo Fixing...
 TIMEOUT /T 1 /NOBREAK >nul
 set intLogType=system
 set intLogImportance=info
-set intMessage1=Fixed drive.
-set intMessage2=Awaiting user response...
-set intMessage3=.
+set intMessage=Fixed drive. Awaiting user response...
 call :intLog
 cls
 echo Done! Your drive has also been freed of 12 bytes of space! Press any key to exit.
 pause>nul
 set intLogType=user
 set intLogImportance=info
-set intMessage1=User chose to exit USB.BAT.
-set intMessage2=USB.BAT will now terminate.
-set intMessage3=Terminating...
+set intMessage=User chose to exit USB.BAT. USB.BAT will now terminate. Terminating...
 call :intLog
 md "%~dp0USB_DAT\intClose"
 exit
@@ -1369,9 +1339,7 @@ exit
 :cl
 set intLogType=system
 set intLogImportance=info
-set intMessage1=Gone to :cl,
-set intMessage2=for clearing security warnings.
-set intMessage3=Clearing warnings...
+set intMessage=Gone to :cl, for clearing security warnings. Clearing warnings...
 call :intLog
 :: Clears security warnings
 cls
@@ -1382,25 +1350,19 @@ echo No warnings to show :-^).
 cls
 set intLogType=system
 set intLogImportance=info
-set intMessage1=Cleared security warnings.
-set intMessage2=Awaiting user response...
-set intMessage3=.
+set intMessage=Cleared security warnings. Awaiting user response...
 call :intLog
 pause
 set intLogType=user
 set intLogImportance=info
-set intMessage1=User chose to go back to menu.
-set intMessage2=Going back to menu...
-set intMessage3=.
+set intMessage=User chose to go back to menu. Going back to menu...
 call :intLog
 goto ain
 
 :rl
 set intLogType=system
 set intLogImportance=info
-set intMessage1=Gone to :rl for reminding the user that the USB is damaged, later. 
-set intMessage2=Saving...
-set intMessage3=.
+set intMessage1=Gone to :rl for reminding the user that the USB is damaged, later. Saving...
 call :intLog
 :: Exits and remembers that the config is damaged
 del "%~dp0/USB_DAT/drive.bat"
@@ -1410,9 +1372,7 @@ cls
 )>"%~dp0/USB_DAT/damaged.bat"
 set intLogType=system
 set intLogImportance=info
-set intMessage1=Saved damaged.bat file.
-set intMessage2=USB.BAT will now terminate.
-set intMessage3=Terminating...
+set intMessage=Saved damaged.bat file. USB.BAT will now terminate. Terminating...
 call :intLog
 md "%~dp0USB_DAT\intClose"
 exit
@@ -1420,9 +1380,7 @@ exit
 :updates
 set intLogType=system
 set intLogImportance=info
-set intMessage1=Gone to :updates,
-set intMessage2=for going to the Github page to check for updates.
-set intMessage3=Redirecting to github page...
+set intMessage=Gone to :updates, for going to the GitHub page to check for updates. Redirecting to GitHub page...
 call :intLog
 cls
 :: Opens GitHub page
@@ -1430,18 +1388,14 @@ start iexplore "https://github.com/AddisonPascal/USB.BAT/blob/master/USB.BAT"
 cls
 set intLogType=system
 set intLogImportance=info
-set intMessage1=Browser was opened.
-set intMessage2=Redirecting to menu...
-set intMessage3=.
+set intMessage=Browser was opened. Redirecting to menu...
 call :intLog
 goto ain
 
 :remd
 set intLogType=system;auth
 set intLogImportance=info
-set intMessage1=Gone to :remd, for removing need to sign in today.
-set intMessage2=Awaiting user confirmation...
-set intMessage3=.
+set intMessage=Gone to :remd, for removing need to sign in today. Awaiting user confirmation...
 call :intLog
 cls
 :: Asks for user confirmation to enable automatic signin for today. 
