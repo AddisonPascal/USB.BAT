@@ -1002,9 +1002,7 @@ echo.
 :: Displays ejection message
 set intLogType=system
 set intLogImportance=info
-set intMessage1=Displaying message
-set intMessage2=and then closing USB.BAT.
-set intMessage3=End of log now.
+set intMessage=Displaying message and then closing USB.BAT. End of log now.
 call :intLog
 md "%~dp0USB_DAT\intClose"
 RunDll32.exe shell32.dll,Control_RunDLL hotplug.dll
@@ -1013,17 +1011,13 @@ exit
 :bf
 set intLogType=system
 set intLogImportance=info
-set intMessage1=Gone to :bf
-set intMessage2=for opening CMD in current drive.
-set intMessage3=Opening CMD...
+set intMessage=Gone to :bf for opening CMD in current drive. Opening CMD...
 call :intLog
 :: Opens CMD window
 start "%~dp0"
 set intLogType=system
 set intLogImportance=info
-set intMessage1=CMD window closed...
-set intMessage2=USB.BAT will now terminate.
-set intMessage3=Terminating...
+set intMessage=CMD window closed... USB.BAT will now terminate. Terminating...
 call :intLog
 md "%~dp0USB_DAT\intClose"
 exit
@@ -1035,9 +1029,7 @@ attrib hidden +h +s
 :: Exits
 set intLogType=system
 set intLogImportance=info
-set intMessage1=USB.BAT will now exit.
-set intMessage2=.
-set intMessage3=Terminating...
+set intMessage=USB.BAT will now exit. Terminating...
 call :intLog
 md "%~dp0USB_DAT\intClose"
 exit
@@ -1045,9 +1037,7 @@ exit
 :cpin
 set intLogType=auth
 set intLogImportance=info
-set intMessage1=Gone to :cpin, to change PIN.
-set intMessage2=Waiting for user to change PIN...
-set intMessage3=.
+set intMessage=Gone to :cpin, to change PIN. Waiting for user to change PIN...
 call :intLog
 cls
 echo New PIN: 
@@ -1055,17 +1045,13 @@ echo New PIN:
 set /p key= ""
 set intLogType=auth;user
 set intLogImportance=notice
-set intMessage1=User has changed PIN.
-set intMessage2=Encrypting PIN...
-set intMessage3=.
+set intMessage=User has changed PIN. Encrypting PIN...
 call :intLog
 :: Encrypts PIN with hex multiplier
 set /a key=%key%*0x10C
 set intLogType=auth
 set intLogImportance=info
-set intMessage1=Encrypted new PIN.
-set intMessage2=Saving PIN...
-set intMessage3=.
+set intMessage=Encrypted new PIN. Saving PIN...
 call :intLog
 echo. 
 :: Saves PIN
@@ -1075,27 +1061,21 @@ echo set key=%key%
 )>"%~dp0/USB_DAT/system.ini.bat"
 set intLogType=auth
 set intLogImportance=info
-set intMessage1=Saved PIN.
-set intMessage2=.
-set intMessage3=Awaiting user response...
+set intMessage=Saved PIN. Awaiting user response...
 call :intLog
 cls
 echo Changed PIN. 
 pause>nul
 set intLogType=user
 set intLogImportance=info
-set intMessage1=User chose to go to menu.
-set intMessage2=Going to menu...
-set intMessage3=.
+set intMessage=User chose to go to menu. Going to menu...
 call :intLog
 goto ain
 
 :trashmanage
 set intLogType=system
 set intLogImportance=info
-set intMessage1=Gone to :trashmanage
-set intMessage2=for going to TrashManage.
-set intMessage3=.
+set intMessage=Gone to :trashmanage for going to TrashManage. 
 call :intLog
 :: Opens TrashManage
 cls
@@ -1107,9 +1087,7 @@ mode 1000
 title TrashManager
 set intLogType=system
 set intLogImportance=debug
-set intMessage1=Changed title
-set intMessage2=for TrashManage.
-set intMessage3=.
+set intMessage=Changed title for TrashManage.
 call :intLog
 goto starttm
 
@@ -1120,18 +1098,14 @@ cls
 echo Warning: On some antivirus systems, USB.BAT's TrashManage section is classified as a virus. Although this is not the case, soon TrashManage may be deleted. If it does, email addison.djatschenko@outlook.com to get another copy or restore it from the Quarantine section. 
 set intLogType=system
 set intLogImportance=debug
-set intMessage1=Displayed TrashManage warning.
-set intMessage2=.
-set intMessage3=.
+set intMessage=Displayed TrashManage warning.
 call :intLog
 :: If iBin (a third-party program) isn't installed on the drive, the program gives instructions on how to recycle items.
 if not exist "%~dp0iBin.exe" (
 echo To dump a file into iBin or .Trash, simply drag it from Windows Explorer of File Explorer from its previous directory. 
 set intLogType=system
 set intLogImportance=info
-set intMessage1=iBin is not installed on this USB.
-set intMessage2=Displayed instructions for recycling.
-set intMessage3=Synchronising recycle bins...
+set intMessage=iBin is not installed on this USB. Displayed instructions for recycling. Synchronising recycle bins...
 call :intLog
 )
 :: And if it is.
