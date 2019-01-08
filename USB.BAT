@@ -1549,9 +1549,7 @@ cls
 set /p d= "Drive to switch to (single letter): "
 set intLogType=user
 set intLogImportance=info
-set intMessage1=User entered drive to switch to.
-set intMessage2=It is: %d%.
-set intMessage3=Attempting to switch...
+set intMessage=User entered drive to switch to. It is: %d%. Attempting to switch...
 call :intLog
 set called=yes
 set action=ac
@@ -1560,18 +1558,14 @@ md "%~dp0USB_DAT\intClose"
 call "%d%:\USB.BAT"
 set intLogType=system
 set intLogImportance=info
-set intMessage1=USB.BAT closed in other drive,
-set intMessage2=%d%.
-set intMessage3=USB.BAT is terminating...
+set intMessage=USB.BAT closed in other drive, %d%. USB.BAT is terminating...
 call :intLog
 exit
 
 :newcust
 set intLogType=system
 set intLogImportance=info
-set intMessage1=Gone to :newcust,
-set intMessage2=to make a Custom Command.
-set intMessage3=Awaiting user entries...
+set intMessage=Gone to :newcust, to make a new Custom Command. Awaiting user entries...
 call :intLog
 cls
 :: Enables user to create and save a Custom Command
@@ -1582,9 +1576,7 @@ set /p l3= "Line 3 out of 4: "
 set /p l4= "Line 4 out of 4: "
 set intLogType=user
 set intLogImportance=info
-set intMessage1=User has entered new custom command.
-set intMessage2=Name= %runname%.
-set intMessage3=Line1= %l1%. Line2= %l2%. Line3= %l3%. Line4= %line4%. Saving command...
+set intMessage=User has entered new custom command. Name= %runname%. Line1= %l1%. Line2= %l2%. Line3= %l3%. Line4= %line4%. Saving command...
 call :intLog
 :: Saves command in batch format in Custom Commands directory
 (
@@ -1596,18 +1588,14 @@ echo %l4%
 )>"%~dp0USB_DAT\cmds\%runname%.bat"
 set intLogType=system
 set intLogImportance=info
-set intMessage1=Saved new custom command.
-set intMessage2=Going to custom command menu...
-set intMessage3=.
+set intMessage=Saved new custom command. Going to custom command menu...
 call :intLog
 goto cust
 
 :runcust
 set intLogType=system
 set intLogImportance=info
-set intMessage1=Gone to :runcust,
-set intMessage2=for running a custom command.
-set intMessage3=Awaiting user to enter command to run...
+set intMessage=Gone to :runcust, for running a custom command. Awaiting user to enter command to run...
 call :intLog
 cls
 :: Run Custom Command interface
