@@ -1535,18 +1535,14 @@ echo That's all, apart from system and warning ones!
 pause
 set intLogType=user
 set intLogImportance=info
-set intMessage1=User decided to go to custom command menu.
-set intMessage2=Going there...
-set intMessage3=.
+set intMessage=User decided to go to custom command menu. Going there...
 call :intLog
 goto cust
 
 :switch
 set intLogType=system
 set intLogImportance=info
-set intMessage1=Gone to :switch,
-set intMessage2=to switch to another USB.
-set intMessage3=Awaiting user response...
+set intMessage=Gone to :switch, to switch to another USB. Awaiting user response...
 call :intLog
 cls
 :: Switches copy of USB.BAT to use
