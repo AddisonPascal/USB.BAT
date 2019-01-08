@@ -1,11 +1,11 @@
-set execTime=%time%
 :: USB.BAT, by Addison Djatschenko
 :: Used to be very messy code. Still is however it is now fully commented!
-:: Version 33.4
+:: Version 33.5
 
+set execTime=%time%
 @echo off
-set newStuff=Simplified crash reporting!
-set version=33.4
+set newStuff=Simplified crash reporting and moved 'set execTime'
+set version=33.5
 set lastUpdated=08Jan19
 set crashUpTo=0
 if exist "%~dp0USB_DAT\warn.txt" goto warnExists
