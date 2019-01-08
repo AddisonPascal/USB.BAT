@@ -759,26 +759,20 @@ cls
 :: Goes here if EncryptStick was exited or failed to execute (ie was already open)
 set intLogType=system
 set intLogImportance=warn
-set intMessage1=EncryptStick was exited or failed to execute.
-set intMessage2=Awaiting user response...
-set intMessage3=.
+set intMessage=EncryptStick was exited or failed to execute. Awaiting user response...
 call :intLog
 echo EncryptStick was exited or was already opened. 
 pause>nul
 set intLogType=user
 set intLogImportance=info
-set intMessage1=User chose to go to menu.
-set intMessage2=Going to menu...
-set intMessage3=.
+set intMessage=User chose to go to menu. Going to menu...
 call :intLog
 goto ain
 
 :dm
 set intLogType=system
 set intLogImportance=info
-set intMessage1=Gone to :dm
-set intMessage2=for dimming the screen.
-set intMessage3=Figuring out colour codes for dim...
+set intMessage=Gone to :dm for dimming the screen. Figuring out colour codes for dim...
 call :intLog
 :: Dim function
 if %bkc%==9 set bkc=1
@@ -799,9 +793,7 @@ if %txc%==f set txc=7
 color %bkc%%txc%
 set intLogType=system
 set intLogImportance=debug
-set intMessage1=Dimming screen...
-set intMessage2=Set dimmed colours.
-set intMessage3=Saving dimmed colours...
+set intMessage=Dimming screen... Set dimmed colours. Saving dimmed colours...
 call :intLog
 :: Saves dimmed colour scheme.
 (
@@ -811,26 +803,20 @@ echo set txc=%txc%
 )>"%~dp0/USB_DAT/color.bat"
 set intLogType=system
 set intLogImportance=debug
-set intMessage1=Dimmed screen.
-set intMessage2=Saved dimmed colours.
-set intMessage3=Waiting for user response...
+set intMessage=Dimmed screen. Saved dimmed colours. Waiting for user response...
 call :intLog
 echo Done!
 pause>nul
 set intLogType=user
 set intLogImportance=info
-set intMessage1=User chose to go to menu.
-set intMessage2=Going to menu...
-set intMessage3=.
+set intMessage=User chose to go to menu. Going to menu...
 call :intLog
 goto ain
 
 :bm
 set intLogType=system
 set intLogImportance=info
-set intMessage1=Gone to :bm
-set intMessage2=for brightening the screen.
-set intMessage3=Figuring out colour codes for brightened mode...
+set intMessage=Gone to :bm for brightening the screen. Figuring out colour codes for brightened mode...
 call :intLog
 cls
 :: Brighten function
@@ -850,9 +836,7 @@ if %bkc%==6 set bkc=e
 if %bkc%==7 set bkc=f
 set intLogType=system
 set intLogImportance=debug
-set intMessage1=Brightening screen...
-set intMessage2=Set brightened colours.
-set intMessage3=Saving brightened colours...
+set intMessage=Brightening screen... Set brightened colours. Saving brightened colours...
 call :intLog
 :: Sets brighter colour scheme
 color %bkc%%txc%
