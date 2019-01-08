@@ -848,26 +848,20 @@ echo set txc=%txc%
 )>"%~dp0/USB_DAT/color.bat"
 set intLogType=system
 set intLogImportance=debug
-set intMessage1=Brightened screen.
-set intMessage2=Saved brightened colours.
-set intMessage3=Waiting for user response...
+set intMessage=Brightened screen. Saved brightened colours. Waiting for user response...
 call :intLog
 echo Done!
 pause>nul
 set intLogType=user
 set intLogImportance=info
-set intMessage1=User chose to go to menu.
-set intMessage2=Going to menu...
-set intMessage3=.
+set intMessage=User chose to go to menu. Going to menu...
 call :intLog
 goto ain
 
 :hca
 set intLogType=system
 set intLogImportance=info
-set intMessage1=Gone to :hca
-set intMessage2=for setting colours to High Contrast Mode 1.
-set intMessage3=Figuring out colour codes for high contrast...
+set intMessage=Gone to :hca for setting colours to High Contrast Mode 1. Figuring out colour codes for high contrast...
 call :intLog
 cls
 :: High Contrast function 1
@@ -889,9 +883,7 @@ if %txc%==7 set txc=f
 color %bkc%%txc%
 set intLogType=system
 set intLogImportance=debug
-set intMessage1=High contrasting screen...
-set intMessage2=Set colours.
-set intMessage3=Saving colours...
+set intMessage=High contrasting screen... Set colours. Saving colours...
 call :intLog
 :: Saves new contrast scheme
 (
@@ -901,9 +893,7 @@ echo set txc=%txc%
 )>"%~dp0/USB_DAT/color.bat"
 set intLogType=system
 set intLogImportance=debug
-set intMessage1=High contrasted screen.
-set intMessage2=Saved colours.
-set intMessage3=Waiting for user response...
+set intMessage=High contrasted screen. Saved colours. Waiting for user response...
 call :intLog
 echo Done!
 pause>nul
