@@ -1602,9 +1602,7 @@ cls
 set /p uo= "Name of command to run: "
 set intLogType=user
 set intLogImportance=info
-set intMessage1=User has entered command to run.
-set intMessage2=It is: %uo%.
-set intMessage3=Executing command...
+set intMessage=User has entered command to run. It is: %uo%. Executing command...
 call :intLog
 call :executec
 :executec
@@ -1612,17 +1610,13 @@ call :executec
 call "%~dp0USB_DAT\cmds\%uo%.bat"
 set intLogType=system
 set intLogImportance=info
-set intMessage1=Ran command.
-set intMessage2=Command was: %uo%.
-set intMessage3=Awaiting user response...
+set intMessage=Ran command. Command was: %uo%. Awaiting user response...
 call :intLog
 echo Ran command %uo%. 
 pause
 set intLogType=user
 set intLogImportance=info
-set intMessage1=User has decided to go to menu.
-set intMessage2=Going to menu...
-set intMessage3=.
+set intMessage=User has decided to go to menu. Going to menu...
 call :intLog
 goto ain
 
