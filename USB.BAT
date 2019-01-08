@@ -978,7 +978,7 @@ set intLogImportance=info
 set intMessage=Gone to :contact for sending an email to Addison Djatschenko. Opening email program...
 call :intLog
 :: Opens mailto link in iexplore which will redirect to mail program and have my email address in the To field.
-start iexplore "mailto:addison.djatschenko@outlook.com"
+start iexplore "mailto:addisondj@hotmail.com&subject=USB.BAT"
 set intLogType=system
 set intLogImportance=notice
 set intMessage=Email program opened. USB.BAT will now exit...
