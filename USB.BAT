@@ -1,12 +1,12 @@
 :: USB.BAT, by Addison Djatschenko
 :: Used to be very messy code. Still is however it is now fully commented!
-:: Version 33.6
+:: Version 33.7
 
 set execTime=%time%
 @echo off
-set newStuff=Simplified crash reporting and moved 'set execTime'
-set version=33.6
-set lastUpdated=08Jan19
+set newStuff=Removed old code references in system goto information
+set version=33.7
+set lastUpdated=21May21
 set crashUpTo=0
 if exist "%~dp0USB_DAT\warn.txt" goto warnExists
 (
@@ -1518,8 +1518,6 @@ echo trashmanage: TrashManager
 echo ibin: iBin
 echo colorc: Change colour
 echo cl: Clear warnings
-echo temp: Temperature
-echo cool: Cool down USB
 echo remd: Remove need to sign in for today
 echo ahh: Need to sign in today
 echo cust: Custom commands
